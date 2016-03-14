@@ -1,20 +1,32 @@
+window.onload = function(){
 var currentQuestion = 1;
-var questionCount = document.getElementById('questionCount');
+var questionCount; 
 
 var questionCountRequest = new XMLHttpRequest();
-  questionCountRequest.open("GET", "http://localhost:9292/questions");
-  questionCountRequest.addEventListener("load", function(event) {
-    var questionCountResponse = event.target;
-    questionCount.innerHTML = questionCountResponse.responseText;
-  });
+questionCountRequest.open("GET", "http://localhost:9292/questions");
 
+questionCountRequest.addEventListener("load", function(event) {
+  var questionCountResponse = event.target;
+  questionCount = questionCountResponse.responseText;
+ });
   questionCountRequest.send();
-console.log(questionCount.innerHTML)
+  console.log(questionCount)
+
+var allQuestions = document.getElementById('questions'); //master div for most in-game elements
+var startButton = document.getElementById('startButton'); 
+var nextButton = document.getElementById('nextButton'); 
+var restartButton = document.getElementById('restartButton');
+var correctNotification = document.getElementById('correct');
+var wrongtNotification = document.getElementById('wrong');
+var questions = document.getElementById('question');
+var scoreCountNotice = document.getElementById('scoreCountNotice'); //variable storing div that will be used to display number of questions answered correctly, number of remaining games, and eventually total number of games played
+var gameEnded = document.getElementById('gameEnded'); //variable storing game over notifcation
+var totalQuestions = questions.length; 
+
+
 
 function getQuestions() {
   var questionRequest = new XMLHttpRequest();
-  var startButton = document.getElementById('startButton');
-  var questions = document.getElementById('question')
   questionRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion);
   questionRequest.addEventListener("load", function(event) {
     var the_request = event.target;
@@ -26,19 +38,10 @@ function getQuestions() {
   questionRequest.send();
 }
 
-console.log(questionCount)
-window.onload = function(){
-  var allQuestions = document.getElementById('questions'); //master div for most in-game elements
-  var startButton = document.getElementById('startButton'); 
-  var nextButton = document.getElementById('nextButton'); 
-  var restartButton = document.getElementById('restartButton');
-  var correctNotification = document.getElementById('correct');
-  var wrongtNotification = document.getElementById('wrong');
-  var questions = document.getElementById('question');
-  var scoreCountNotice = document.getElementById('scoreCountNotice'); //variable storing div that will be used to display number of questions answered correctly, number of remaining games, and eventually total number of games played
-  var gameEnded = document.getElementById('gameEnded'); //variable storing game over notifcation
-  var totalQuestions = questions.length; 
-
+startButton.addEventListener("click", function(event) {
+  getQuestions()
+});
+  
 
 //   //event listener that is triggered when next button is clicked
 //   nextButton.addEventListener("click", function() {
