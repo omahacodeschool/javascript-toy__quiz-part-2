@@ -38,11 +38,11 @@ enter.addEventListener("click", function() {
   var user_response = answer.value;
   var correct_answer = document.getElementById('correct_answer').innerHTML;
 
-  // if (user_response == correct_answer) {
-  //   question_result.innerHTML = "Correct!"
-  // } else {
-  //   question_result.innerHTML = "Incorrect."
-  // }
+  if (user_response == correct_answer) {
+    question_result.innerHTML = "Correct!"
+  } else {
+    question_result.innerHTML = "Incorrect."
+  }
 
 
 });
