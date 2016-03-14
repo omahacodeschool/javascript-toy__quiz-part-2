@@ -4,7 +4,7 @@ end
 
 MyApp.get "/info" do
   @question = Question.find_by_id(1)
-  erb :"../front-end/info"
+  erb :"info"
 end
 
 MyApp.get "/new" do

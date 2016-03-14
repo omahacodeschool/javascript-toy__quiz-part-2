@@ -7,7 +7,7 @@ window.onload = function(){
   var request = new XMLHttpRequest();
 
 
-  request.open("GET", "http://localhost:8080/info.erb");
+  request.open("GET", "http://localhost:9292/info");
   // a request to the server running through http-server
   
   request.addEventListener("load", function(event){
