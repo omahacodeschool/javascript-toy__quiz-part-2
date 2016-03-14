@@ -1,21 +1,32 @@
 var currentQuestion = 1;
-// When DOM loaded, all subsequent script information is generated
+var questionCount = document.getElementById('questionCount');
 
+var questionCountRequest = new XMLHttpRequest();
+  questionCountRequest.open("GET", "http://localhost:9292/questions");
+  questionCountRequest.addEventListener("load", function(event) {
+    var questionCountResponse = event.target;
+    questionCount.innerHTML = questionCountResponse.responseText;
+  });
+
+  questionCountRequest.send();
+console.log(questionCount.innerHTML)
 
 function getQuestions() {
   var questionRequest = new XMLHttpRequest();
   var startButton = document.getElementById('startButton');
+  var questions = document.getElementById('question')
   questionRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion);
   questionRequest.addEventListener("load", function(event) {
-      var the_request = event.target;
-      alert(the_request.responseText);
-      startButton.style.display = "none";
+    var the_request = event.target;
+    alert(the_request.responseText);
+    startButton.style.display = "none";
       // responseText is a built-in method for request objects.
   });
 
   questionRequest.send();
 }
 
+console.log(questionCount)
 window.onload = function(){
   var allQuestions = document.getElementById('questions'); //master div for most in-game elements
   var startButton = document.getElementById('startButton'); 
@@ -23,10 +34,10 @@ window.onload = function(){
   var restartButton = document.getElementById('restartButton');
   var correctNotification = document.getElementById('correct');
   var wrongtNotification = document.getElementById('wrong');
-  var questions = document.getElementsByClassName('question'); //collection of each instance of question class
+  var questions = document.getElementById('question');
   var scoreCountNotice = document.getElementById('scoreCountNotice'); //variable storing div that will be used to display number of questions answered correctly, number of remaining games, and eventually total number of games played
   var gameEnded = document.getElementById('gameEnded'); //variable storing game over notifcation
-  var totalQuestions = questions.length; // variable storing record of how many question instances are in questions varibale
+  var totalQuestions = questions.length; 
 
 
 //   //event listener that is triggered when next button is clicked
