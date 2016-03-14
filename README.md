@@ -6,7 +6,7 @@ Your task in this assignment is to build a quiz game using JavaScript (and HTML)
 
 The previous version of this assignment tasked you with building a Quiz Game wherein both the game's "brain" (including answers!) as well as the game's front-end (UX) were stored on the client-side (as there was no server-side) of the application. This version is very similar from the front-end perspective, but it moves the game's "brain" to the server-side. The front-end and server "speak" to each other through the request/response cycle, as always; but this time those requests/responses are made/received through JavaScript's XHR objects.
 
-As with the previous version, this assignment is split into two parts. Again, it's meant to be nearly identical to the previous version--with the modification of using XHR. So expect to be able to use your past work as a reference, but don't copy/paste on cruise control--know what you're copying over and why.
+As with the previous version, this assignment is split into two parts. Again, it's meant to be very similar to the previous version--with the modification of using XHR. So expect to be able to use your past work as a reference, but don't copy/paste on cruise control--know what you're copying over and why.
 
 Please start out by creating a PR for this repo, and don't forget to push your code every 30-40 minutes just so we can see how its going.
 
@@ -68,33 +68,33 @@ You'll be able to access the server via <http://localhost:9292>, as you always h
 
 ## Phase 1
 
-Much of what you read below will be _exactly_ the same as this Phase from the first version of this assignment. From the client's perspective, nothing has changed. However, the implementation details will have some new components.
+This phase is an _abbreviated take_ on the first version's Phase 1. Instead of building the entire working quiz game using `prompt` and `alert`, this Phase guides you through building the display of **just one question and its answers**.
+
+The goal is to get some practice writing controller actions for the server-side of the application and some JavaScript for the front-end. Don't try to implement everything within this Phase. Just get a single question to show, so that you have a working pattern in your mind for how to get the front-end and server-side talking with each other.
 
 ### User Story
 
 1. Your user loads the **index.html** page, which contains a button to begin the game.
 2. They are presented with a `prompt()` asking them a multiple choice question.
-3. Upon answer, they see an `alert()` telling them whether they answered correctly or incorrectly. They click "Okay" to move on.
-4. Steps 2-3 repeat until there are no more questions.
-5. Once they have answered all questions, they see an `alert()` telling them how many they answered correctly (out of however many questions there were), and something that looks like a percentage. E.g. **You answered 7 of 10 questions correctly, good for 70.0%**
+3. Upon answer, they see an `alert()` telling them whether they answered correctly or incorrectly.
 
-### Clarifying the Assignment
+That's all. Just the first question, and then the program ends.
 
-1. Questions should be multiple choice. You'll have the stem (question), 4 answer choices, and only one of those answers should be correct. Every question should follow this format.
-2. Don't worry about putting any content on the page -- we'll worry about DOM manipulation later.
-3. Your game should contain at least 3 questions.
+The Sinatra application which this assignment includes already contains **four** questions and their respective answers (including which answer is correct). Check the database schema file to see the table/column structure.
+
+For this Phase, don't worry about putting any content on the page -- we'll worry about DOM manipulation later. Just stick with a single `prompt` to show the question and receive the user's guess, and a single `alert` to tell them if they got the question correct.
+
+---
 
 Build this however you can--don't worry about optimizing, refactoring, best practices, etc. Just think through the steps and implement whatever solution you can come up with.
 
-This game can be built using a loop, which iterates over a collection of questions. But it does not have to use a loop. If you're struggling with the looping aspect of this game, try building it _without_ one.
-
-It's true that you'll end up writing more lines of code, and you might be aware of the repetition (and violation of DRY), but--as the instructions above say--build this however you can.
+You should not need a loop at all for this Phase. It should be a fairly straightforward exercise to give you a small amount of practice before moving onto the next Phase.
 
 ### Implementation Details
 
-To get you started, consider using the outline below for the first feature. And remember, don't copy/paste from the first version too eagerly.
+To get you started, consider using the outline below. And remember, don't copy/paste from the first version too eagerly.
 
-Let's say the first feature is "clicking the 'begin' button fetches the first question's text (along with its answer set)". Here's how we might diagram that out:
+The first feature for this small Phase is "clicking the 'begin' button fetches the first question's text (along with its answer set)". Here's how we might diagram that out:
 
 ![](http://cl.ly/fP9v/Screen%20Shot%202016-03-14%20at%207.03.59%20AM.png)
 
@@ -108,7 +108,9 @@ If your controller action's route path is `"/combined_question_and_answer/:id"`,
 
 Finally, the `load` event of the XHR object will automatically be triggered when the XHR object receives a response from the server. So you'll attach an event listener for `"load"` onto the XHR object, which contains a block of code that `prompts` the user with the combines question/answer text.
 
-This template should be a useful guide as you build out the rest of the Quiz Game's functionality.
+The next step will be to collect the user's input into the `prompt` and make another XHR request to ask the server-side if the answer was correct.
+
+Remember, don't bother adding subsequent questions in this Phase. Just consider this template a "cliffs-notes" guide for building out the rest of the Quiz Game's functionality in Phase 2.
 
 ---
 
