@@ -4,11 +4,17 @@ window.onload = function(){
   startButton.addEventListener("click", function(){
 
     var request = new XMLHttpRequest();
-    request.open("GET", "http://localhost:9292/add/question")
+    var params = 1
+    request.open("GET", "http://localhost:9292/add/question/" + params)
     request.addEventListener("load", function(event){
       var the_request = event.target;
-      alert(the_request.responseText);
-      prompt("First Answer go here");
+      userResponse = prompt(the_request.responseText);
+      if(userResponse.toLowerCase() == "Array"){
+        alert("Correct!");
+      }
+      else{
+        alert("Wrong!");
+      };
     });
     request.send();
   });
