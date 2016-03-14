@@ -25,7 +25,6 @@ window.onload = function(){
       answer.send();      
     });
     request.send();
-
   });
 
 

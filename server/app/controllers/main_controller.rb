@@ -9,9 +9,13 @@ MyApp.get "/add/question/:id" do
 end
 
 MyApp.get "/is_correct/:id/:answer" do
-  @question = Question.find_by_id(params[:id])
-  @correct_answer = @question.correct_answer
-  @correct_answer[0].content
+  question = Question.find_by_id(params[:id])
+  correct_answer = question.correct_answer
+  if correct_answer[0].content == params[:answer]
+    return "That is correct."
+  else
+    return "WRONG!"
+  end
 end
 
 
