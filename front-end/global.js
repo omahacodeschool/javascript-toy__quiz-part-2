@@ -57,17 +57,29 @@ window.onload = function(){
 
 
   begin.addEventListener("click", function() {
-    var request = new XMLHttpRequest();
-    request.open("GET", " http://localhost:9292/question/" + (currentQuestion +1));
+    var requestQuestion = new XMLHttpRequest();
+    requestQuestion.open("GET", " http://localhost:9292/question/" + (currentQuestion +1));
 
-    request.addEventListener("load", function() {
-      var theRequest = event.target;
-      var questionText = theRequest.responseText;
+    var requestAnswers = new XMLHttpRequest();
+    requestAnswers.open("GET", " http://localhost:9292/answers/" + (currentQuestion +1));    
+
+
+    requestQuestion.addEventListener("load", function() {
+      var questionRequest = event.target;
+      var questionText = questionRequest.responseText;
       question.innerHTML = questionText;
       nextQuestion(); 
     });
 
-    request.send();
+    requestAnswers.addEventListener("load", function() {
+      var answerRequest = event.target;
+      var answerText = answerRequest.responseText;
+    });
+
+
+
+    requestQuestion.send();
+    requestAnswers.send();    
   });
 
 };  

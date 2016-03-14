@@ -7,7 +7,7 @@ MyApp.get "/question/:id" do
   erb :"question"
 end 
 
-MyApp.get "/answer/:id" do
+MyApp.get "/answers/:id" do
   @answers = Answer.where({"question_id" => params[:id]})
   erb :"answers"
 end
