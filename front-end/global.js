@@ -1,2 +1,4 @@
 window.onload = function(){
+
+  pr
 };
