@@ -3,6 +3,8 @@ MyApp.get "/" do
 end
 
 MyApp.get "/add/question" do
+  @question = Question.find_by_id(1)
+  @answers = Answer.where({"question_id" => 1})
   erb :"new_question"
 end
 
