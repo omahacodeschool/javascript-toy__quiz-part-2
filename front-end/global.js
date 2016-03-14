@@ -26,11 +26,6 @@ window.onload = function(){
     });
     request.send();
   });
-
-
-
-
-
 };
 
 
