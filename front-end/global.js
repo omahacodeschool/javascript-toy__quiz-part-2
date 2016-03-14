@@ -7,12 +7,19 @@ begin.addEventListener("click", function() {
 
   question_request.open("get", "http://localhost:9292/question/1");
   question_request.addEventListener("load", function(event){
-    var the_question_request = event.target;
-    alert(the_question_request.responseText);
-
+    question.innerHTML = question_request.responseText
   });
 
+  var choices_request = new XMLHttpRequest();
+
+  choices_request.open("get", "http://localhost:9292/choices/1");
+  choices_request.addEventListener("load", function(event){
+    choices.innerHTML = choices_request.responseText
+  });
+
+
 question_request.send();
+choices_request.send();
 
 });
 
