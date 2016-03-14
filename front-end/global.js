@@ -1,11 +1,11 @@
 window.onload = function(){
 
-var begin = document.getElementById('begin_button')
+var begin = document.getElementById('begin_button');
 
 begin.addEventListener("click", function() {
   var qna_request = new XMLHttpRequest();
 
-  qna_request.open("GET", "http://localhost:9292/question_and_choices/1");
+  qna_request.open("get", "http://localhost:9292/question_and_choices/1");
   qna_request.addEventListener("load", function(event){
     var the_qna_request = event.target;
     prompt(the_qna_request.responseText);
