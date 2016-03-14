@@ -8,11 +8,11 @@ window.onload = function(){
 
     request.addEventListener("load", function() {
       var theRequest = event.target;
-      var answer = prompt(theRequest.responseText);
+      prompt(theRequest.responseText);
+
     });
 
     request.send();
   });
-
 
 };
