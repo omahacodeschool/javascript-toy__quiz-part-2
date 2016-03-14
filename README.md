@@ -5,7 +5,7 @@
 Your task in this assignment is to build a quiz game using JavaScript (and HTML), **including XHR**.
 
 The previous version of this assignment tasked you with building a Quiz Game wherein both the game's "brain" (including answers!) as well as the game's front-end (UX) were stored on the client-side (as there was no server-side) of the application. This version is very similar from the front-end perspective, but it moves the game's "brain" to the server-side. The front-end and server "speak" to each other through the request/response cycle, as always; but this time those requests/responses are made/received through JavaScript's XHR objects.
-
+ 
 As with the previous version, this assignment is split into two parts. Again, it's meant to be nearly identical to the previous version--with the modification of using XHR. So expect to be able to use your past work as a reference, but don't copy/paste on cruise control--know what you're copying over and why.
 
 Please start out by creating a PR for this repo, and don't forget to push your code every 30-40 minutes just so we can see how its going.
