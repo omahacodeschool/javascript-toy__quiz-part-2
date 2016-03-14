@@ -4,17 +4,18 @@ window.onload = function(){
   //and we'll still need to track our right_answers counter variable
   var right_answers = 0
 
+
   var request = new XMLHttpRequest();
-
-
   request.open("GET", "http://localhost:9292/info");
-  // a request to the server running through http-server
-  
-  request.addEventListener("load", function(event){
-    var the_request = event.target;
-    alert(the_request.responseText);
-    // responseText is a built-in method for request objects.
-  });
-  
+
+  var begin = document.getElementById("begin_button")
+  begin.addEventListener("click", function() {
+    request.addEventListener("click", function(event){
+      var the_request = event.target;
+      var answer = prompt(the_request.responseText);
+      console.log("something is happening?")
+    });
+  }); 
+
   request.send();
 };
