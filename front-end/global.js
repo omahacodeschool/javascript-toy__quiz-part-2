@@ -1,4 +1,6 @@
 window.onload = function(){
+
+  
   var begin = document.getElementById("beginButton");
 
 
@@ -8,8 +10,7 @@ window.onload = function(){
 
     request.addEventListener("load", function() {
       var theRequest = event.target;
-      prompt(theRequest.responseText);
-
+      var answer = prompt(theRequest.responseText);
     });
 
     request.send();
