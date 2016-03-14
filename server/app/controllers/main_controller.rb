@@ -23,3 +23,7 @@ MyApp.post "/add/answer_to_database" do
   #cool stuff
   redirect "/add/answers"
 end
+
+MyApp.get "get/question" do
+  erb :"new_question"
+end
