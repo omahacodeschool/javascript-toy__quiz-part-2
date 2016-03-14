@@ -11,3 +11,8 @@ MyApp.get "/choices/:id" do
   @question_object = Question.find_by_id(params[:id])
   erb :"/choices"
 end
+
+MyApp.get "/correct/:id" do
+  @question_object = Question.find_by_id(params[:id])
+  erb :"/correct"
+end
