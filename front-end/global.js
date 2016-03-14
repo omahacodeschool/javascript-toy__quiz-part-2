@@ -36,17 +36,19 @@ begin.addEventListener("click", function() {
 });
 
 
-// enter.addEventListener("click", function() {
-//   var user_response = answer.value;
+enter.addEventListener("click", function() {
+  var user_response = answer.value;
+  
+  //check for correct_answer access
 
-//   if (user_response == correct_answer) {
-//     question_result.innerHTML = "Correct!"
-//   } else {
-//     question_result.innerHTML = "Incorrect."
-//   }
+  // if (user_response == correct_answer) {
+  //   question_result.innerHTML = "Correct!"
+  // } else {
+  //   question_result.innerHTML = "Incorrect."
+  // }
 
 
-// });
+});
 
 
 
