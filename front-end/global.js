@@ -13,22 +13,25 @@ window.onload = function(){
     request.addEventListener("load", function(event){
       var the_request = event.target;
       userResponse = prompt(the_request.responseText);
+
+      var answer = new XMLHttpRequest();
+
+      answer.open("GET", "http://localhost:9292/is_correct/"
+      +params+"/"+userResponse);
+      answer.addEventListener("load", function(event){
+        var is_correct = event.target;
+        alert(is_correct.responseText);
+      });
+      answer.send();      
     });
     request.send();
-    answer.send();
+
   });
 
-  userResponse.addEventListener("click",function(){
 
-    var answer = new XMLHttpRequest();
 
-    answer.open("GET", "http://localhost:9292/is_correct/"
-    +params+"/"+userResponse);
-    answer.addEventListener("load", function(event){
-      var is_correct = event.target;
-      alert(is_correct.responseText)
-    });
-  });
+
+
 };
 
 

@@ -9,8 +9,9 @@ MyApp.get "/add/question/:id" do
 end
 
 MyApp.get "/is_correct/:id/:answer" do
-
-  erb :"answer"
+  @question = Question.find_by_id(params[:id])
+  @correct_answer = @question.correct_answer
+  @correct_answer[0].content
 end
 
 
