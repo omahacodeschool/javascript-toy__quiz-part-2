@@ -6,6 +6,7 @@ window.onload = function(){
   
   var request = new XMLHttpRequest();
   
+  var answer = ""
   
   var begin = document.getElementById("begin_button")
   begin.addEventListener("click", function() {
@@ -13,17 +14,10 @@ window.onload = function(){
     request.send();    
     request.addEventListener("load", function(event){
       var the_request = event.target;
-      var answer = prompt(the_request.responseText);
-      if(answer === //answer to this question) {
-        alert("CORRECT");
-      } else {
-        alert("INCORRECT")
-      }
+      answer = prompt(the_request.responseText);
+      console.log(answer)
     // responseText is a built-in method for request objects.
     });
   }); 
-
-
-  
-
+  var 
 };

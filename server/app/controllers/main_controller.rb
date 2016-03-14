@@ -4,6 +4,7 @@ end
 
 MyApp.get "/info" do
   @question = Question.find_by_id(1)
+  @question.correct_answer
   erb :"info"
 end
 
