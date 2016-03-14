@@ -1,0 +1,1 @@
+Run `bin/setup` to create the database and pre-populate it with some questions/answers.

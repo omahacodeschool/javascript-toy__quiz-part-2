@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  database: quiz-game
+  host: localhost
+test:
+  adapter: postgresql
+  database: quiz-game-test
+  host: localhost

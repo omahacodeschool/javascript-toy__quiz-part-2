@@ -1,0 +1,9 @@
+#!/bin/bash
+
+bundle install
+
+echo -e "\nInitializing new database..."
+bundle exec rake db:create
+
+echo -e "\nSeeding database with questions/answers..."
+bundle exec rake db:seed
