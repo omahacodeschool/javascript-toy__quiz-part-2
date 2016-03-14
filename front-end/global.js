@@ -50,10 +50,16 @@ enter.addEventListener("click", function() {
     question_result.innerHTML = "Incorrect.";
   }
 
+  if (current_question >= 4) {
+    result.innerHTML = "That's the end of our game--you have " + points_count + "/4 points! That's " + (points_count/4)*100 + "%."
+  }
+
+
 });
 
 next.addEventListener("click", function() {
   current_question++
+  answer.value=""
 
   var question_request = new XMLHttpRequest();
 
