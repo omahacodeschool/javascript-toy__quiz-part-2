@@ -25,7 +25,7 @@ var totalQuestions = questions.length;
 
 
 
-function getQuestions() {
+function getStartGame() {
   var questionRequest = new XMLHttpRequest();
   questionRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion);
   questionRequest.addEventListener("load", function(event) {
@@ -39,7 +39,7 @@ function getQuestions() {
 }
 
 startButton.addEventListener("click", function(event) {
-  getQuestions()
+  getStartGame()
 });
   
 
