@@ -14,9 +14,16 @@ window.onload = function(){
     request.addEventListener("load", function(event){
       var the_request = event.target;
       var answer = prompt(the_request.responseText);
+      if(answer === //answer to this question) {
+        alert("CORRECT");
+      } else {
+        alert("INCORRECT")
+      }
     // responseText is a built-in method for request objects.
     });
   }); 
+
+
   
 
 };
