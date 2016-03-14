@@ -1,6 +1,6 @@
 window.onload = function(){
 var currentQuestion = 1;
-var questionCount; 
+var questionCount;
 
 var questionCountRequest = new XMLHttpRequest();
 questionCountRequest.open("GET", "http://localhost:9292/questions");
@@ -8,9 +8,9 @@ questionCountRequest.open("GET", "http://localhost:9292/questions");
 questionCountRequest.addEventListener("load", function(event) {
   var questionCountResponse = event.target;
   questionCount = questionCountResponse.responseText;
- });
-  questionCountRequest.send();
-  console.log(questionCount)
+});
+questionCountRequest.send();
+
 
 var allQuestions = document.getElementById('questions'); //master div for most in-game elements
 var startButton = document.getElementById('startButton'); 
@@ -18,19 +18,20 @@ var nextButton = document.getElementById('nextButton');
 var restartButton = document.getElementById('restartButton');
 var correctNotification = document.getElementById('correct');
 var wrongtNotification = document.getElementById('wrong');
-var questions = document.getElementById('question');
 var scoreCountNotice = document.getElementById('scoreCountNotice'); //variable storing div that will be used to display number of questions answered correctly, number of remaining games, and eventually total number of games played
 var gameEnded = document.getElementById('gameEnded'); //variable storing game over notifcation
+var questionCountDiv = document.getElementById('questionCountDiv');
 var totalQuestions = questions.length; 
 
+function getQuestion() {
 
-
-function getStartGame() {
   var questionRequest = new XMLHttpRequest();
+  var questionQuestion = document.getElementById('questionQuestion');
+
   questionRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion);
   questionRequest.addEventListener("load", function(event) {
     var the_request = event.target;
-    alert(the_request.responseText);
+    questionQuestion.innerHTML = the_request.responseText;
     startButton.style.display = "none";
       // responseText is a built-in method for request objects.
   });
@@ -38,8 +39,28 @@ function getStartGame() {
   questionRequest.send();
 }
 
+function getChoices() {
+  var questionRequest = new XMLHttpRequest();
+  var questionChoices = document.getElementById('questionChoices');
+  var answerForm = document.getElementById('answerForm');
+  questionRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices");
+  questionRequest.addEventListener("load", function(event) {
+    var the_request = event.target;
+    var choices = the_request.responseText;
+    startButton.style.display = "none";
+    
+    for ( var i = 0; i <= choices.length; i++) {
+      choiceRadioElement = document.createElement(`<input type="radio" name="questionChoice" /> ${choices[i]}`);
+      questionChoices.appendChild(choiceRadioElement)
+    }
+  });
+
+  questionRequest.send();
+}
+
 startButton.addEventListener("click", function(event) {
-  getStartGame()
+  getQuestion()
+  getChoices()
 });
   
 

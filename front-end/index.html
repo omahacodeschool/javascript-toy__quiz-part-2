@@ -7,19 +7,19 @@
 </head>
 <body>
 <h1>Quiz Game</h1>
+<div id="questionCountDiv"></div> 
+</div>
 <div id="scoreCountNotice"></div> 
 </div>
-<form onsubmit="determineScore(event)">
 <div id="gameEnded" style="display: none">GAME OVER.</div> 
   <div id="questions">
 
-    <ul id="question" class="question" style="display: none">
-      <p id="questionQuestion"> WORDS WILL GO HERE AND STUFF </p>
-      <li><input type="radio" name="questionChoices" > SOME WORDS WILL GO HERE</li>
-      <li><input type="radio" name="questionChoices" > SOME WORDS WILL GO HERE</li>
-      <li><input type="radio" name="questionChoices" > SOME WORDS WILL GO HERE</li>
-      <li><input type="radio" name="questionChoices" > SOME WORDS WILL GO HERE</li>
-      <li><input type="radio" name="questionChoices" > SOME WORDS WILL GO HERE</li>
+    <ul id="question" class="question">
+
+    <form id="answerForm">
+      <p id="questionChoices"></p>
+    <input id="submitButton" style="display: none" type="submit" value="Submit"> </form>
+
 
       <p id="questionActualAnswer" style="display: none" > WORDS WILL GO HERE AND STUFF </p>
     </ul>
@@ -27,8 +27,6 @@
     <p id="correct" style="display: none"> CORRECT </p>
     <p id="wrong" style="display: none"> WRONG </p>
 
-    <input id="submitButton" style="display: none" type="submit" value="Submit">
-    </form>
     <button type="button" id="nextButton" style="display: none"> Next Question</button>
   </div>
   <button type="button" id="startButton">Click Here to Start the Quiz</button>
