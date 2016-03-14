@@ -24,9 +24,7 @@ begin.addEventListener("click", function() {
 
   correct_request.open("get", "http://localhost:9292/correct/1");
   correct_request.addEventListener("load", function(event){
-    var correct_answer = correct_request.responseText;
-    question_result.innerHTML = correct_answer
-
+    correct_answer.innerHTML = correct_request.responseText;
   });
 
   question_request.send();
@@ -38,8 +36,7 @@ begin.addEventListener("click", function() {
 
 enter.addEventListener("click", function() {
   var user_response = answer.value;
-  
-  //check for correct_answer access
+  var correct_answer = document.getElementById('correct_answer').innerHTML;
 
   // if (user_response == correct_answer) {
   //   question_result.innerHTML = "Correct!"
