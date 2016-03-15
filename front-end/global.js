@@ -24,7 +24,7 @@ window.onload = function(){
   };
   hide_class_elements("q_stuff")
   hide_class_elements("a_stuff")
-
+  //
   var begin = document.getElementById("begin_button")
   begin.addEventListener("click", function() {
     hide_class_elements("beginning_stuff")
@@ -35,5 +35,17 @@ window.onload = function(){
       var question_details = event.target;
       document.getElementById("question").innerHTML = question_details.responseText
     });
-  });  
+  }); 
+  //
+  var submit_guess = document.getElementById("submitter")
+  submit_guess.addEventListener("click", function() {
+    guess = document.getElementById("answer").value;
+    request.open("GET", "http://localhost:9292/answer");
+    request.send();    
+    request.addEventListener("load", function(event){
+      var correct_answer = event.target;
+      console.log("answer =" + guess)
+      console.log("correct answer is" + correct_answer)
+    });
+  });
 };
