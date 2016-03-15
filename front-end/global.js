@@ -2,6 +2,20 @@
 var score = 0;
 var question = 1;
 
+function getQuestionCount(){
+  var question_count_request = new XMLHttpRequest();
+  //this isn't very relevant at this moment, but if this were 
+  //scalable and there were multiple sets of questions for different
+  //quizzes, something like this would probably be needed.
+  question_count_request.open("GET", "http://localhost:9292/quiz");
+  question_count_request.addEventListener("load", function(event){
+    var the_question_count_request = event.target;
+    var question_count = the_question_count_request.responseText;
+  });
+  question_count_request.send();
+  return question_count;
+};
+
 function showOption(option_key, text){
 
     var radio = document.createElement("input");
@@ -51,7 +65,6 @@ function showOption(option_key, text){
 
 function submitAnswer() {
     var userAnswer = document.querySelector('input[name="option"]:checked').value;
-    debugger;
     var result = document.getElementById("question_result");
     //result.innerHTML = userAnswer;
     var check_answer_request = new XMLHttpRequest();

@@ -9,6 +9,12 @@ MyApp.get "/combined_question_and_answer/:id" do
   erb :"question_answer_one"
 end
 
+MyApp.get "/quiz" do
+  @questions = Question.all
+  @question_count = @questions.count
+  return @question_count
+  erb :"home"
+end
 
 MyApp.get "/verify/:id/:answer" do 
   @question = Question.find_by_id(params[:id])
