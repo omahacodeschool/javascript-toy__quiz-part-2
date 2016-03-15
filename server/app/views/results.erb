@@ -1,5 +1,7 @@
 
 
 <% @results.each do |r| %>
-<ul><%= r.content %></ul>
+<ul><% if r.correct == true %></ul>
+    <%= r.content %>
+    <%end%>
 <%end%>

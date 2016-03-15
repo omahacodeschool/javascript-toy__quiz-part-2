@@ -9,7 +9,6 @@ MyApp.get "/answers/:id" do
 end
 
 MyApp.get "/result/:id" do
-  @results = [] 
-  @results = Answer.where("correct" => "true")
+  @results = Answer.where("question_id" => (params[:id]))
   erb :"results"
 end
