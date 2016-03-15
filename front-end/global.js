@@ -19,10 +19,33 @@ function showOption(option_key, text){
   };
 
   function createOptionsList(){
-    var i = 0;
+    var choices_request = new XMLHttpRequest();
+    choices_request.open("GET", "http://localhost:9292/choices/" + question);
+
+    choices_request.addEventListener("load", function(event){
+    var the_choices_request = event.target;
+    var choices_element = document.getElementById("choices");
+    var options_string = the_choices_request.responseText;
+    var response_array = options_string.split("***");
+    var options_array = response_array.slice(1);
+
+
     var options_list = document.createElement("OL");
       options_list.type = "A";
-      options_list.id = ((i + 1) + "options");
+      options_list.id = question + "options";
+
+      for (i = 0; i < options_array.length; i++) {
+      var option = showOption(i, options_array[i]);
+      options_list.appendChild(option);
+  }
+    choices_element.innerHTML = "";
+    choices_element.appendChild(options_list);
+
+
+
+  });
+
+  choices_request.send();
   };
 
 
@@ -44,6 +67,19 @@ function submitAnswer() {
     check_answer_request.send();
   };
 
+  function showQuestion(){
+    var question_request = new XMLHttpRequest();
+    question_request.open("GET", "http://localhost:9292/question/" + question);
+
+    question_request.addEventListener("load", function(event){
+      var the_question_request = event.target;
+      var question_element = document.getElementById("question");
+      question_element.innerHTML = "";
+      question_element.innerHTML = the_question_request.responseText;
+    });
+    question_request.send();
+  };
+
 
 
 
@@ -51,22 +87,23 @@ window.onload = function(){
 
   var begin_button = document.getElementById("begin_button");
 
-  begin_button.addEventListener("click", function(begin_button) {
+  begin_button.addEventListener("click", function(event) {
 
+    showQuestion(event);
+    createOptionsList(event);
 
-
-  var question_request = new XMLHttpRequest();
+  //var question_request = new XMLHttpRequest();
     //creates a new Request Object
-  question_request.open("GET", "http://localhost:9292/question/" + question);
+  //question_request.open("GET", "http://localhost:9292/question/" + question);
     // specifies the path and http verb for the request, using the open method 
-  begin_button.target.style.display = "none";
+  event.target.style.display = "none";
 
-  question_request.addEventListener("load", function(event){
-    var the_question_request = event.target;
+  //question_request.addEventListener("load", function(event){
+    //var the_question_request = event.target;
 
-    var question_element = document.getElementById("question");
+    //var question_element = document.getElementById("question");
 
-    question_element.innerHTML = the_question_request.responseText;
+    //question_element.innerHTML = the_question_request.responseText;
 
     //FIND ALTERNATIVE METHOD OF GETTING ANSWER
     //var userAnswer = prompt(the_request.responseText);
@@ -83,43 +120,40 @@ window.onload = function(){
 
     //request_answer.send();
 
-  });
+  
 
-  question_request.send();
+  //question_request.send();
 
-  var choices_request = new XMLHttpRequest();
+  //var choices_request = new XMLHttpRequest();
     // creates a new Request Object to get the choices
 
-    choices_request.open("GET", "http://localhost:9292/choices/" + question);
+    //choices_request.open("GET", "http://localhost:9292/choices/" + question);
     //specifies the path and http verb for the choices request
 
-  choices_request.addEventListener("load", function(event){
-    var the_choices_request = event.target;
-    var choices_element = document.getElementById("choices");
-    var options_string = the_choices_request.responseText;
-    var response_array = options_string.split("***");
-    var options_array = response_array.slice(1);
+  // choices_request.addEventListener("load", function(event){
+  //   var the_choices_request = event.target;
+  //   var choices_element = document.getElementById("choices");
+  //   var options_string = the_choices_request.responseText;
+  //   var response_array = options_string.split("***");
+  //   var options_array = response_array.slice(1);
 
-    var options_list = document.createElement("OL");
-      options_list.type = "A";
-      options_list.id = "options";
     
-    for (i = 0; i < options_array.length; i++) {
-      var option = showOption(i, options_array[i]);
-      options_list.appendChild(option);
-  }
+  //   for (i = 0; i < options_array.length; i++) {
+  //     var option = showOption(i, options_array[i]);
+  //     options_list.appendChild(option);
+  // }
 
-    choices_element.appendChild(options_list);
-
-
-
-  });
-
-  choices_request.send();
+  //   choices_element.appendChild(options_list);
 
 
 
-  });
+  // });
+
+  // choices_request.send();
+
+});
+
+  
 
 
   var submitter = document.getElementById("submitter");
