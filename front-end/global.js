@@ -22,7 +22,7 @@ window.onload = function(){
 
   getAnswers.send();
 
-  var showIfCorrect = document.getElementById("quesion_result");
+  var showIfCorrect = document.getElementById("question_result");
   var submitAnswer = document.getElementById("submitThis");
   var sendAnswer = new XMLHttpRequest();
 
@@ -35,8 +35,24 @@ window.onload = function(){
     });
     sendAnswer.send();
   });
+ //------------------------------------------------------------------- 
+  nextQuestion = document.getElementById("next")
+  nextQuestion.addEventListener("click", function(){
+    if(current_question < 4){
+      document.getElementById("question_result").innerHTML = "";
+      current_question++
+      getQuestion.open("GET", "http://localhost:9292/get/question/" + current_question)
+      getQuestion.send();
+      getAnswers.open("GET", "http://localhost:9292/get/answers/" + current_question);
+      getAnswers.send();
+    }
+    else{
+      alert("Game Over!")
+    };
 
-
+    // sendAnswer.open("GET", "http://localhost:9292/is_correct/"+current_question+"/"+userAnswer);
+    // sendAnswer.send();
+  });
 };
 
 
