@@ -12,8 +12,7 @@ end
 MyApp.get "/quiz" do
   @questions = Question.all
   @question_count = @questions.count
-  return @question_count
-  erb :"home"
+  return @question_count.to_s
 end
 
 MyApp.get "/verify/:id/:answer" do 
