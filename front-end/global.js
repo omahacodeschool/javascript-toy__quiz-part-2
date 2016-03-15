@@ -3,6 +3,7 @@ var score = 0;
 var question = 1;
 var quizQuestionCount;
 
+
 function getQuestionCount(){
   var question_count_request = new XMLHttpRequest();
   //this isn't very relevant at this moment, but if this were 
@@ -12,8 +13,8 @@ function getQuestionCount(){
   question_count_request.addEventListener("load", function(event){
     var the_question_count_request = event.target;
     quizQuestionCount = parseInt(the_question_count_request.responseText);
-    var question_count_element = document.getElementById("question_count");
-    question_count_element.innerHTML = "Total Questions in Quiz: " + quizQuestionCount;
+    //var question_count_element = document.getElementById("question_count");
+    //question_count_element.innerHTML = "Total Questions in Quiz: " + quizQuestionCount;
   });
   question_count_request.send();
 };
@@ -68,6 +69,11 @@ function showOption(option_key, text){
 function submitAnswer() {
     var userAnswer = document.querySelector('input[name="option"]:checked').value;
     var result = document.getElementById("question_result");
+    var submitter_button = document.getElementById("submitter");
+      submitter_button.style.display = "none";
+
+    var next_q_button = document.getElementById("next");
+    next_q_button.style.display = "";
     //result.innerHTML = userAnswer;
     var check_answer_request = new XMLHttpRequest();
     check_answer_request.open("GET", "http://localhost:9292/verify/" + question + "/" + userAnswer);
@@ -79,6 +85,7 @@ function submitAnswer() {
       if (check_answer_request.responseText == "CORRECT!"){
         score++;
       }
+
       if (question > quizQuestionCount){
         var total_result = document.getElementById("total_result");
         total_result.innerHTML = "You got " + score + " out of " + quizQuestionCount + " correct.";
@@ -91,12 +98,16 @@ function submitAnswer() {
   };
 
   function showQuestion(){
+    var next_q_button = document.getElementById("next");
+    next_q_button.style.display = "none";
     var question_request = new XMLHttpRequest();
     question_request.open("GET", "http://localhost:9292/question/" + question);
 
     question_request.addEventListener("load", function(event){
       var the_question_request = event.target;
       var question_element = document.getElementById("question");
+      var submit_button = document.getElementById("submitter");
+      submit_button.style.display = "";
       question_element.innerHTML = "";
       question_element.innerHTML = the_question_request.responseText;
       if (question >= quizQuestionCount) {
@@ -111,6 +122,12 @@ function submitAnswer() {
 
 
 window.onload = function(){
+
+  var submitter_button = document.getElementById("submitter");
+      submitter_button.style.display = "none";
+
+  var next_q_button = document.getElementById("next");
+    next_q_button.style.display = "none";
 
   var begin_button = document.getElementById("begin_button");
 
