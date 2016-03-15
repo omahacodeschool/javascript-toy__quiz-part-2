@@ -29,6 +29,15 @@ MyApp.get "/verify/:place/:userdata" do
   end
   end
 end
+MyApp.get "/choices/:id" do
+  @question = Question.find_by_id(params[:id])
+  erb :"choices"
+end
+
+MyApp.get "/answer/:id" do
+  @question = Question.find_by_id(params[:id])
+  erb :"answer"
+end
 
 # DB.define_table("questions")
 # DB.define_column("questions", "content", "text")
