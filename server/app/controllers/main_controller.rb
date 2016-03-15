@@ -18,3 +18,8 @@ MyApp.get "/check_answer/:id/:answer" do
     return "INCORRECT!"
   end
 end
+
+MyApp.get "/question/:id" do
+  @question = Question.find_by_id(params[:id])
+  return @question.content
+end
