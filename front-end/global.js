@@ -65,6 +65,7 @@ window.onload = function(){
 
   button.addEventListener("click", function(){
     var guess = document.getElementById("answer").value;
+    var question_results = document.getElementById("question_results");
 
     var result = new XMLHttpRequest();
       result.open("get", "http://localhost:9292/result/"+ count);
@@ -72,12 +73,13 @@ window.onload = function(){
     result.addEventListener("load", function(event){
     var the_result = event.target;
       var result_response = the_result.responseText;
-      chioces.innerHTML = result_response; 
+      question_results.innerHTML = result_response; 
     });
 
     result.send();
-    
-    if (guess == result) {
+  });
+
+    if (guess == question_results) {
       alert("Correct!"); score++;
     } else {
       alert("Incorrect"); 
@@ -88,6 +90,6 @@ window.onload = function(){
     if(count == question_list.length) {
         alert("Thanks for playing! You got " + score + " out of " + count + " right!");
     }
-  });
+
 };
 

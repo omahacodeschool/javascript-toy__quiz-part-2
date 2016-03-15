@@ -11,6 +11,5 @@ end
 MyApp.get "/result/:id" do
   @results = [] 
   @results = Answer.where("correct" => "true")
-  @result = @results[:id]
   erb :"results"
 end
