@@ -10,7 +10,7 @@ window.onload = function(){
     
     first_question.addEventListener("load", function(event){
     var the_first_question = event.target;
-    alert(the_first_question.responseText);
+      prompt(the_first_question.responseText);
     });
 
 
