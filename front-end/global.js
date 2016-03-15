@@ -8,9 +8,9 @@ window.onload = function(){
   var submitter = document.getElementById('submitter');
   var nextButton = document.getElementById("nextButton");
   var begin = document.getElementById("beginButton");
-  var answerField = document.getElementById("answer");
   var question = document.getElementById("question");    
   var totalResult = document.getElementById("totalResult"); 
+  var choices = document.getElementById("choices");
   var quizLength = 4; 
 
 
@@ -50,7 +50,6 @@ window.onload = function(){
 
       //Changes view once response is received
       begin.style.display = "none";
-      answerField.style.display = "block";
       submitter.style.display = "block";
 
       //Removes HTML from previous question, if there is any there.
@@ -79,18 +78,19 @@ window.onload = function(){
 
 //******* TEST METHOD FOR CREATING RADIO BUTTONS
 
-      (function(){
+      (function(){             
         answerText.forEach(function(answer) {
+          var pTag = document.createElement('p');
           var label = document.createElement('label');
           label.innerHTML = answer;
           var input = document.createElement('input');
           input.type = "radio";
           input.name = "answer";
-          input.value = answer;
-          document.getElementById('choices').appendChild(label);          
-          document.body.appendChild(label);
-          document.body.appendChild(input);
-        });
+          input.value = answer;  
+          choices.appendChild(pTag)
+          choices.appendChild(label);
+          choices.appendChild(input);
+        });        
       })();
 
 //******** END OF TEST METHOD
@@ -110,8 +110,6 @@ window.onload = function(){
       var requestCorrect = new XMLHttpRequest();
       requestCorrect.open("GET", " http://localhost:9292/correct_answer/" + (currentQuestion)); 
 
-      answerField.style.display = "none";    
-
       //What to do once response is received for correct answer.
       requestCorrect.addEventListener("load", function() {      
 
@@ -119,7 +117,13 @@ window.onload = function(){
       var correctText = correctRequest.responseText;
 
       //Stores input from user as answer
-      var answer = document.getElementById("answer").value;
+      var answers = document.getElementsByName("answer");
+      for (var i = 0, length = answers.length; i < length; i++) {
+          if (answers[i].checked) {
+            var answer = answers[i].value;
+        break;
+        }
+      }      
 
       var questionResult = document.getElementById("questionResult"); 
       questionResult.style.display = "block";
@@ -157,8 +161,7 @@ window.onload = function(){
     }); 
 
     requestCorrect.send();
-    submitter.style.display = "none";
-    answerField.style.display = "none";        
+    submitter.style.display = "none";    
   });
 
 //User Clicks "Next" Button for next question
@@ -169,7 +172,6 @@ window.onload = function(){
   currentQuestion ++;
   nextQuestion();  
   questionResult.style.display = "none";
-  answerField.value = "";
   });
 
 
