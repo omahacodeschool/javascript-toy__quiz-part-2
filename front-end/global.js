@@ -6,8 +6,12 @@ var begin = document.getElementById('begin_button');
 var enter = document.getElementById('submitter');
 var next = document.getElementById('next');
 var points = document.getElementById('result');
+var quiz = document.getElementById('quiz');
 
 begin.addEventListener("click", function() {
+
+  quiz.style.display = "block";
+  enter.style.display = "block";
   var question_request = new XMLHttpRequest();
 
   question_request.open("get", "http://localhost:9292/question/"+current_question+"");
