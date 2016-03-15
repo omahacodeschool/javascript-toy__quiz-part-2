@@ -13,13 +13,7 @@ window.onload = function(){
     request.addEventListener("load", function(event){
       var the_request = event.target;
       answer = prompt(the_request.responseText);
-      request.open("GET", "http://localhost:9292/" + answer)
-      request.send();  
-      the_request = event.target;  
-      request.addEventListener("load", function(event){
-        alert(the_request.responseText)
       console.log(answer)
-    // responseText is a built-in method for request objects.
     });
   });  
 };
