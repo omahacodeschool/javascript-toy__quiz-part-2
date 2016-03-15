@@ -4,7 +4,7 @@ end
 
 MyApp.get "/question/:id" do 
   @question = Question.find_by_id(params[:id])
-  erb :"question"
+  @question.content
 end 
 
 MyApp.get "/answers/:id" do

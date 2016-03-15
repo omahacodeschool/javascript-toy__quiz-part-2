@@ -25,11 +25,11 @@ window.onload = function(){
 //NextQuestion() Function for setting up pretty much everything for the question:
 
   function nextQuestion() {
-  //HXR Request for Question data
+  //XHR Request for Question data
     var requestQuestion = new XMLHttpRequest();
     requestQuestion.open("GET", " http://localhost:9292/question/" + (currentQuestion)); 
 
-  //HXR request for answer data
+  //XHR request for answer data
     var requestAnswers = new XMLHttpRequest();
     requestAnswers.open("GET", " http://localhost:9292/answers/" + (currentQuestion));    
 
@@ -58,32 +58,48 @@ window.onload = function(){
       while (node.hasChildNodes()) {
           node.removeChild(node.firstChild);
       }
-      //Self-Calling function that creates a ul with list items, each filled with answer from test. This will come in handy, I believe, if I want to do other visual things with each answer in the future.
+      //Self-Executing function that creates a ul with list items, each filled with answer from test. This will come in handy, I believe, if I want to do other visual things with each answer in the future.
+
+      // (function(){
+      //   var ul = document.createElement('ul');
+      //   ul.setAttribute('id','choiceList');
+
+
+      //   document.getElementById('choices').appendChild(ul);
+      //   answerText.forEach(showChoices);
+
+      //   function showChoices(element, index, arr) {
+
+      //     var li = document.createElement('li');
+
+      //     ul.appendChild(li);
+      //     li.innerHTML = li.innerHTML + element;
+      //   }
+      // })();
+
+//******* TEST METHOD FOR CREATING RADIO BUTTONS
 
       (function(){
-        var ul = document.createElement('ul');
-        ul.setAttribute('id','choiceList');
-
-
-        document.getElementById('choices').appendChild(ul);
-        answerText.forEach(showChoices);
-
-        function showChoices(element, index, arr) {
-
-          var li = document.createElement('li');
-
-          ul.appendChild(li);
-          li.innerHTML = li.innerHTML + element;
-        }
-
+        answerText.forEach(function(answer) {
+          var label = document.createElement('label');
+          label.innerHTML = answer;
+          var input = document.createElement('input');
+          input.type = "radio";
+          input.name = "answer";
+          input.value = answer;
+          document.getElementById('choices').appendChild(label);          
+          document.body.appendChild(label);
+          document.body.appendChild(input);
+        });
       })();
 
+//******** END OF TEST METHOD
+
     });
-    //sends HXR Requests as defined above
+    //sends XHR Requests as defined above
     requestQuestion.send();
     requestAnswers.send(); 
   };
-
 
   //User Clicks 'submit' to submit answer.
 
@@ -93,6 +109,8 @@ window.onload = function(){
     //HXR request for correct answer
       var requestCorrect = new XMLHttpRequest();
       requestCorrect.open("GET", " http://localhost:9292/correct_answer/" + (currentQuestion)); 
+
+      answerField.style.display = "none";    
 
       //What to do once response is received for correct answer.
       requestCorrect.addEventListener("load", function() {      
@@ -115,7 +133,6 @@ window.onload = function(){
         questionResult.innerHTML = ("Sorry. " + correctText + " is the answer!");
       }
 
-      answerField.style.display = "none";
       // If all questions have been answered, display score/percentage
       if (currentQuestion === quizLength) {
         nextButton.style.display = "none";
