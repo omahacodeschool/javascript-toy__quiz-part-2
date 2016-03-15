@@ -99,12 +99,15 @@ window.onload = function(){
       var correctRequest = event.target;
       var correctText = correctRequest.responseText;
 
+
       var answer = document.getElementById("answer").value;
       answer = answer.toUpperCase(); 
 
       var questionResult = document.getElementById("questionResult"); 
       questionResult.style.display = "block";
 
+      debugger
+        
       if (answer == correctText) {
         questionResult.innerHTML = ("That is correct!");
         score ++;

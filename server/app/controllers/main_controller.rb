@@ -18,5 +18,5 @@ end
 
 MyApp.get "/correct_answer/:id" do
   question = Question.find_by_id(params[:id]) 
-  question.correct_answer[3]
+  question.correct_answer[0].content
 end 
