@@ -9,5 +9,9 @@ MyApp.get "/answer_check/:question_id/:user_answer" do
   @user_answer = params[:user_answer]
   @corr_answer = @question.correct_answer
 
-  erb :"answer"
+  if @user_answer == @corr_answer[0].content
+    erb :"correct_answer"
+  else
+    erb :"incorrect_answer"
+  end
 end
