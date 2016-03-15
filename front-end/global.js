@@ -79,7 +79,8 @@ window.onload = function(){
     var choices_element = document.getElementById("choices");
     var choices_list = document.createElement("p");
     var options_string = the_choices_request.responseText;
-    var options_array = options_string.split("***");
+    var response_array = options_string.split("***");
+    var options_array = response_array.slice(1);
 
     var options_list = document.createElement("OL");
       options_list.type = "A";
@@ -87,11 +88,12 @@ window.onload = function(){
     
     //var text = "";
     for (i = 0; i < options_array.length; i++) {
-      var option = showOption((i + 1), options_array[i])
-    text += options_array[i] + "<br>";
+      var option = showOption((i + 1), options_array[i]);
+      options_list.appendChild(option);
   }
+    choices_list.innerHTML = options_array + options_array.length;
 
-    choices_list.innerHTML = text;
+    choices_element.appendChild(options_list);
     choices_element.appendChild(choices_list);
 
     //choices_list = document.createElement("OL");
