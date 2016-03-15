@@ -2,10 +2,18 @@ MyApp.get "/" do
   erb :"home"
 end
 
-MyApp.get "/add/question/:id" do
-  @question = Question.find_by_id(params[:id])
-  @answers = Answer.where({"question_id" => params[:id]})
-  erb :"new_question"
+MyApp.get "/get/question/:id" do
+  question = Question.find_by_id(params[:id])
+  answers = Answer.where({"question_id" => params[:id]})
+  question.content
+end
+MyApp.get "/get/answers/:id" do
+  answers = Answer.where({"question_id" => params[:id]})
+  possbile_answers = ""
+  answers.each do |x|
+   possbile_answers.insert(-1, x.content+". ")
+ end
+ possbile_answers
 end
 
 MyApp.get "/is_correct/:id/:answer" do

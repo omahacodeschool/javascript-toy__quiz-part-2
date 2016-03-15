@@ -1,38 +1,28 @@
 window.onload = function(){
 
-  startButton = document.getElementById("begin_button");
-  var params = 1;
-  var correctAnswers = 0;
-  var userResponse = "";
+  current_question = 1
+  var getQuestion = new XMLHttpRequest();
+  var showQuestion = document.getElementById("question")
 
-  startButton.addEventListener("click", function(){
-
-    var request = new XMLHttpRequest();
-    
-    request.open("GET", "http://localhost:9292/add/question/" + params);
-    request.addEventListener("load", function(event){
-      var the_request = event.target;
-      userResponse = prompt(the_request.responseText);
-
-      var answer = new XMLHttpRequest();
-
-      answer.open("GET", "http://localhost:9292/is_correct/"
-      +params+"/"+userResponse);
-      answer.addEventListener("load", function(event){
-        var is_correct = event.target;
-        alert(is_correct.responseText);
-      });
-      answer.send();      
-    });
-    request.send();
+  getQuestion.open("GET", "http://localhost:9292/get/question/" + current_question)
+  getQuestion.addEventListener("load", function(question){
+    var theQuestion = question.target;
+    showQuestion.innerHTML = theQuestion.responseText;
   });
+
+  getQuestion.send();
+
+  var getAnswers = new XMLHttpRequest();
+  var showAnswers = document.getElementById("choices")
+  getAnswers.open("GET", "http://localhost:9292/get/answers/" + current_question)
+  getAnswers.addEventListener("load", function(answer){
+    var theAnswers = answer.target;
+    showAnswers.innerHTML = theAnswers.responseText;
+  });
+
+  getAnswers.send();
+
+
 };
 
 
-
-      // if(userResponse.toLowerCase() == "array"){
-      //   alert("Correct!");
-      //   correctAnswers++;
-      // }
-      // else{
-      //   alert("Wrong!");
