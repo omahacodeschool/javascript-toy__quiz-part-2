@@ -54,7 +54,7 @@ window.onload = function(){
     answer.addEventListener("load", function(event){
     var the_answer = event.target;
       var answer_response = the_answer.responseText;
-      chioces.innerHTML = answer_response; count++;
+      chioces.innerHTML = answer_response; 
     });
 
     answer.send();
@@ -72,7 +72,7 @@ window.onload = function(){
     result.addEventListener("load", function(event){
     var the_result = event.target;
       var result_response = the_result.responseText;
-      chioces.innerHTML = result_response; count++;
+      chioces.innerHTML = result_response; 
     });
 
     result.send();
