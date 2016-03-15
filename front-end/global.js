@@ -22,7 +22,8 @@ var wrongtNotification = document.getElementById('wrong');
 var scoreCountNotice = document.getElementById('scoreCountNotice'); //variable storing div that will be used to display number of questions answered correctly, number of remaining games, and eventually total number of games played
 var gameEnded = document.getElementById('gameEnded'); //variable storing game over notifcation
 var questionCountDiv = document.getElementById('questionCountDiv');
-var questionQuestion = document.getElementById('questionQuestion')
+var questionQuestion = document.getElementById('questionQuestion');
+var questionChoices = document.getElementById('questionChoices');
 var totalQuestions = questions.length; 
 
 function getQuestion() {
@@ -46,18 +47,21 @@ function getChoices(word) {
   var answerForm = document.getElementById('answerForm');
   answerRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices");
   answerRequest.addEventListener("load", function(event) {
-    var questionQuestion = document.getElementById('questionQuestion')
+    var questionChoices = document.getElementById('questionChoices');
     var the_request = event.target;
-    var choices = the_request.responseText;
+    var choices = JSON.parse(the_request.responseText);
     startButton.style.display = "none";
-    alert(choices)
-
+    nextButton.style.display = "block";
     for (var choice in choices){
-      var questionChoice = document.createElement("p")
-      questionChoice.innerHTML = choices[choice]
-      questionChoice.className = 'QuestionChoices';
-      questionQuestion.appendChild(questionChoice);
-      console.log(choice)
+      var label = document.createElement("label");
+      var choiceQuestion = document.createElement("INPUT");
+      choiceQuestion.setAttribute("type", "radio");
+      choiceQuestion.name = `question${currentQuestion}Choices`;
+      choiceQuestion.value = choices[choice]
+      label.appendChild(choiceQuestion);
+      label.appendChild(document.createTextNode(choices[choice]));
+      questionChoices.appendChild(label);  
+      questionChoices.appendChild(document.createElement('br'));
     }
   });
 
