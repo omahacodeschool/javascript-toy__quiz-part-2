@@ -11,7 +11,7 @@ MyApp.get "/get/answers/:id" do
   answers = Answer.where({"question_id" => params[:id]})
   possbile_answers = ""
   answers.each do |x|
-   possbile_answers.insert(-1, x.content+". ")
+   possbile_answers.insert(-1, x.content+"? ")
  end
  possbile_answers
 end
