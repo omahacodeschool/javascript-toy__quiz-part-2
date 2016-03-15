@@ -1,6 +1,7 @@
 
 var score = 0;
 var question = 1;
+var quizQuestionCount = 0;
 
 function getQuestionCount(){
   var question_count_request = new XMLHttpRequest();
@@ -11,9 +12,10 @@ function getQuestionCount(){
   question_count_request.addEventListener("load", function(event){
     var the_question_count_request = event.target;
     var question_count = the_question_count_request.responseText;
+    quizQuestionCount = parseInt(question_count);
   });
   question_count_request.send();
-  return question_count;
+  return quizQuestionCount;
 };
 
 function showOption(option_key, text){
@@ -103,6 +105,9 @@ window.onload = function(){
   var begin_button = document.getElementById("begin_button");
 
   begin_button.addEventListener("click", function(event) {
+    var question_count = getQuestionCount(event);
+    question_count_element = document.getElementById("question_count");
+    question_count_element.innerHTML = question_count;
     showQuestion(event);
     createOptionsList(event);
     event.target.style.display = "none";
