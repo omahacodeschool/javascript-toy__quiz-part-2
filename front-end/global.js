@@ -1,6 +1,15 @@
 window.onload = function(){
 
   var start_it      = document.getElementById("begin_button");
+  var quiz          = document.getElementById("quiz");
+  var question      = document.getElementById("question");
+  var choices       = document.getElementById("choices");
+  var submit_it     = document.getElementById("submit_button");
+  var q_result      = document.getElementById("question_result");
+  var t_result      = document.getElementById("total_result");
+  var next_it       = document.getElementById("next_button");
+  var que_class     = document.getElementsByClassName("que");
+  var result_class  = document.getElementsByClassName("que_result");
   var questionCount = 1
   var winCount      = 0
 
@@ -26,8 +35,8 @@ window.onload = function(){
       console.log(answer_request.responseText);
       });
       submit.send();
+      questionCount++
     });
     request.send();
-    // questionCount++
   });
 };
