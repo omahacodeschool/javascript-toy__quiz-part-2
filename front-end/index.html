@@ -11,17 +11,24 @@
 
 <button id="begin_button">Click me to begin the game.</button>
 
-<div id="quiz">
+<div id="quiz" style="display: none">
   <div id="question"></div>
   <div id="choices"></div>
   <input type="text" id="answer">
-  <button id="submitter">Enter</button>
   </div>
-  <div id="correct_answer"></div>
-  <div id="question_result"></div>
-  <button id="next">Next question</button>
-  <div id="result"></div>
+  <button id="submitter" style="display: none">Enter</button>
+  <div id="correct_answer" style="display: none"></div>
+  <div id="question_result" style="display: none"></div>
+  <button id="next" style="display: none">Next question</button>
+  <div id="result" style="display: none"></div>
 
 </body>
 
 </html>
+
+<!-- Add these things:
+hide/show display styles for buttons and various answer elements
+hide sequential points count at end of game
+radio buttons for choices
+user can't move forward unless something is entered into answer
+-->
