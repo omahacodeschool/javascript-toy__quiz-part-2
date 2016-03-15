@@ -1,4 +1,4 @@
-# JavaScript - Quiz (Part 2)
+ # JavaScript - Quiz (Part 2)
 
 ## In Brief
 
