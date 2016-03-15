@@ -1,6 +1,6 @@
 window.onload = function(){
 var currentChoice = 0;
-var currentQuestion = 1;
+var currentQuestion = 0;
 var questionCount;
 
 var questionCountRequest = new XMLHttpRequest();
@@ -34,7 +34,6 @@ function getQuestion() {
   var questionQuestion = document.getElementById('questionQuestion')
     var the_request = event.target;
     questionQuestion.innerHTML = the_request.responseText;
-    startButton.style.display = "none";
       // responseText is a built-in method for request objects.
   });
 
@@ -43,6 +42,9 @@ function getQuestion() {
 
 
 function getChoices(word) {
+  startButton.style.display = "none";
+  submitButton.style.display = "block";
+
   var answerRequest = new XMLHttpRequest();
   var answerForm = document.getElementById('answerForm');
   answerRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices");
@@ -50,14 +52,12 @@ function getChoices(word) {
     var questionChoices = document.getElementById('questionChoices');
     var the_request = event.target;
     var choices = JSON.parse(the_request.responseText);
-    startButton.style.display = "none";
-    nextButton.style.display = "block";
     for (var choice in choices){
       var label = document.createElement("label");
       var choiceQuestion = document.createElement("INPUT");
       choiceQuestion.setAttribute("type", "radio");
       choiceQuestion.name = `question${currentQuestion}Choices`;
-      choiceQuestion.value = choices[choice]
+      choiceQuestion.value = choices[choice];
       label.appendChild(choiceQuestion);
       label.appendChild(document.createTextNode(choices[choice]));
       questionChoices.appendChild(label);  
@@ -68,10 +68,49 @@ function getChoices(word) {
   answerRequest.send();
 }
 
+function getUserAnswer() {
+  var radios = getElementsByTagName('question${currentQuestion}Choices');
+  for (var i=0, len=radios.length; i<len; i++) {    
+    if ( radios[i].checked ) {
+      return radios[i].value;
+    }
+  }
+  return null
+}
+
+function getAnswerCheck(answer) {
+  var validateAnswerRequest = new XMLHttpRequest();;
+  validateAnswerRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices/" + answer);
+  validateAnswerRequest.addEventListener("load", function(event) {
+    var questionQuestion = document.getElementById('questionQuestion')
+    var validatedQuestionRequest = event.target;
+    var validatedQuestion = validatedQuestionRequest.responseText;
+
+    if (validatedQuestion == "true") {
+     correctNotification.style.display = "block";
+    } else {
+      wrongtNotification.style.display ="block";
+    }
+  });
+
+  validateAnswerRequest.send();
+}
+
+
 startButton.addEventListener("click", function(event) { 
+  startButton.innerHTML = "Next"
+  ++currentQuestion
   getQuestion()
   getChoices()
   
+});
+
+submitButton.addEventListener("click", function(event) {
+  var userAnswer = getUserAnswer()
+
+  if (userAnswer != null) {
+
+  }
 });
   
 
