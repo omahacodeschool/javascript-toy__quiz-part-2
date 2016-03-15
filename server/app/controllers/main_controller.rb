@@ -9,20 +9,24 @@ MyApp.get "/info" do
 
   erb :"home"
 end
-MyApp.get "/quiz1" do
-  binding.pry
+MyApp.get "/quiz/:place" do
+  
   @question = Question.find_by_id(params[:place])
   @answers = Answer.where({"question_id" => params[:place]})
+  
   erb :"quiz"
 end
 
-MyApp.get "/verify/:place" do
+MyApp.get "/verify/:place/:userdata" do
   question = Question.find_by_id(params[:place])
   correct = question.correct_answer
-  if correct == params[:place]
+  correct.each do |a|
+  if a.content == params[:userdata]
+
     return "Correct!"
   else
     return "Nope"
+  end
   end
 end
 
