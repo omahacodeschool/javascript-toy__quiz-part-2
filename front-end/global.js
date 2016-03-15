@@ -10,15 +10,14 @@ window.onload = function(){
   var begin = document.getElementById("beginButton");
   var answerField = document.getElementById("answer");
   var question = document.getElementById("question");    
-  var totalResult = document.getElementById("totalResult");  
-
-// sets up next/first question. Copied/pasted/modified code from part 1 phase 2
-// Still needs to be heavily modified 
+  var totalResult = document.getElementById("totalResult"); 
+  var quizLength = 4; 
 
 
 // user clicks "begin" button to start quiz. 
 
   begin.addEventListener("click", function() {
+    currentQuestion ++;
     //calls nextQuestion function to set up next question
     nextQuestion();
   });
@@ -28,11 +27,11 @@ window.onload = function(){
   function nextQuestion() {
   //HXR Request for Question data
     var requestQuestion = new XMLHttpRequest();
-    requestQuestion.open("GET", " http://localhost:9292/question/" + (currentQuestion +1)); 
+    requestQuestion.open("GET", " http://localhost:9292/question/" + (currentQuestion)); 
 
   //HXR request for answer data
     var requestAnswers = new XMLHttpRequest();
-    requestAnswers.open("GET", " http://localhost:9292/answers/" + (currentQuestion +1));    
+    requestAnswers.open("GET", " http://localhost:9292/answers/" + (currentQuestion));    
 
 
     //What to do with Question response
@@ -59,7 +58,7 @@ window.onload = function(){
       while (node.hasChildNodes()) {
           node.removeChild(node.firstChild);
       }
-      //Self-Calling function that creates a ul with li's, each filled with answer from test.
+      //Self-Calling function that creates a ul with list items, each filled with answer from test. This will come in handy, I believe, if I want to do other visual things with each answer in the future.
 
       (function(){
         var ul = document.createElement('ul');
@@ -71,12 +70,12 @@ window.onload = function(){
 
         function showChoices(element, index, arr) {
 
-            var li = document.createElement('li');
+          var li = document.createElement('li');
 
-            ul.appendChild(li);
-            li.innerHTML = li.innerHTML + element;
-
+          ul.appendChild(li);
+          li.innerHTML = li.innerHTML + element;
         }
+
       })();
 
     });
@@ -86,7 +85,6 @@ window.onload = function(){
   };
 
 
-
   //User Clicks 'submit' to submit answer.
 
   // Event Listener for Submit Button. 
@@ -94,7 +92,7 @@ window.onload = function(){
 
     //HXR request for correct answer
       var requestCorrect = new XMLHttpRequest();
-      requestCorrect.open("GET", " http://localhost:9292/correct_answer/" + (currentQuestion +1)); 
+      requestCorrect.open("GET", " http://localhost:9292/correct_answer/" + (currentQuestion)); 
 
       //What to do once response is received for correct answer.
       requestCorrect.addEventListener("load", function() {      
@@ -117,17 +115,45 @@ window.onload = function(){
         questionResult.innerHTML = ("Sorry. " + correctText + " is the answer!");
       }
 
+      answerField.style.display = "none";
+      // If all questions have been answered, display score/percentage
+      if (currentQuestion === quizLength) {
+        nextButton.style.display = "none";
+
+        var scorePercentage = (score / (quizLength) * 100);
+        scorePercentage = scorePercentage.toFixed(2) + "%";
+
+        totalResult.innerHTML = "Your score is " + score + " out of " + currentQuestion + ". (That's a " + scorePercentage + "!)";
+
+        var node = document.getElementById('choices');
+
+        // removes question/answer data from display
+        while (node.hasChildNodes()) {
+          node.removeChild(node.firstChild);
+          question.style.display = "none";
+          questionResult.style.display = "none";
+          }
+      } else {
+        nextButton.style.display = "block";
+      }     
+
     }); 
+
     requestCorrect.send();
     submitter.style.display = "none";
-    nextButton.style.display = "block"
     answerField.style.display = "none";        
   });
 
-  //User Clicks "Next" Button for next question
-  nextButton.addEventListener("click", function() {
-    currentQuestion ++;
-    nextQuestion();
+//User Clicks "Next" Button for next question
+  //Event Listener for event button
+
+  nextButton.addEventListener("click", function() { 
+  nextButton.style.display = "none";
+  currentQuestion ++;
+  nextQuestion();  
+  questionResult.style.display = "none";
+  answerField.value = "";
   });
+
 
 };  
