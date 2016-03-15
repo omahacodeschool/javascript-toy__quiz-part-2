@@ -44,8 +44,10 @@ window.onload = function(){
     request.send();    
     request.addEventListener("load", function(event){
       var correct_answer = event.target;
-      console.log("answer =" + guess)
-      console.log("correct answer is" + correct_answer.responseText)
+      correct_answer = correct_answer.responseText
+      console.log("answer = " + guess)
+      console.log("correct answer is " + correct_answer)
+      if(guess === correct_answer){alert(correct_answer)};
     });
   });
 };
