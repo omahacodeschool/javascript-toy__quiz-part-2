@@ -61,6 +61,10 @@ enter.addEventListener("click", function() {
     question_result.innerHTML = "Correct!";
     points_count++;
     points.innerHTML = "You have " + points_count + " point(s).";
+  } else if (user_response == "") {
+    question_result.innerHTML = "You didn't enter an answer. Try again.";
+    enter.style.display = "block";
+    next.style.display = "none";
   } else {
     question_result.innerHTML = "Incorrect.";
   }
@@ -82,8 +86,8 @@ next.addEventListener("click", function() {
   enter.style.display = "block";
   question_result.style.display = "none";
 
-  current_question++
-  answer.value=""
+  current_question++;
+  answer.value="";
 
   var question_request = new XMLHttpRequest();
 
