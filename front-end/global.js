@@ -1,4 +1,5 @@
 window.onload = function(){
+var currentChoice = 0;
 var currentQuestion = 1;
 var questionCount;
 
@@ -21,15 +22,15 @@ var wrongtNotification = document.getElementById('wrong');
 var scoreCountNotice = document.getElementById('scoreCountNotice'); //variable storing div that will be used to display number of questions answered correctly, number of remaining games, and eventually total number of games played
 var gameEnded = document.getElementById('gameEnded'); //variable storing game over notifcation
 var questionCountDiv = document.getElementById('questionCountDiv');
+var questionQuestion = document.getElementById('questionQuestion')
 var totalQuestions = questions.length; 
 
 function getQuestion() {
-
-  var questionRequest = new XMLHttpRequest();
-  var questionQuestion = document.getElementById('questionQuestion');
-
+  currentChoice = 0;
+  var questionRequest = new XMLHttpRequest();;
   questionRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion);
   questionRequest.addEventListener("load", function(event) {
+  var questionQuestion = document.getElementById('questionQuestion')
     var the_request = event.target;
     questionQuestion.innerHTML = the_request.responseText;
     startButton.style.display = "none";
@@ -38,29 +39,41 @@ function getQuestion() {
 
   questionRequest.send();
 }
+function getQuestionAnswerCount() {
+  var answerCountRequest = new XMLHttpRequest();''
+  answerCountRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion +"/choices");
 
-function getChoices() {
-  var questionRequest = new XMLHttpRequest();
-  var questionChoices = document.getElementById('questionChoices');
-  var answerForm = document.getElementById('answerForm');
-  questionRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices");
-  questionRequest.addEventListener("load", function(event) {
-    var the_request = event.target;
-    var choices = the_request.responseText;
-    startButton.style.display = "none";
-    
-    for ( var i = 0; i <= choices.length; i++) {
-      choiceRadioElement = document.createElement(`<input type="radio" name="questionChoice" /> ${choices[i]}`);
-      questionChoices.appendChild(choiceRadioElement)
-    }
+  answerCountRequest.addEventListener("load", function(event) {
+    var answerCountResponse = event.target;
+    var choiceCount = answerCountResponse.responseText;
   });
-
-  questionRequest.send();
+  answerCountRequest.send();
 }
 
-startButton.addEventListener("click", function(event) {
+function getChoices(word) {
+  var answerRequest = new XMLHttpRequest();
+  var answerForm = document.getElementById('answerForm');
+  answerRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices/" + currentChoice);
+  answerRequest.addEventListener("load", function(event) {
+    var word = document.createElement("p");
+    var questionQuestion = document.getElementById('questionQuestion')
+    var the_request = event.target;
+    word.innerHTML = the_request.responseText;
+    questionQuestion.appendChild(word);
+    startButton.style.display = "none";
+    console.log(choices)
+  });
+
+  answerRequest.send();
+}
+
+startButton.addEventListener("click", function(event) { 
   getQuestion()
-  getChoices()
+  getQuestionAnswerCount()
+  while (currentChoice <= choiceCount) {
+    ++currentChoice
+    getChoices(`question${currentChoice}`)
+  }
 });
   
 
