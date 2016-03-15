@@ -7,8 +7,8 @@ MyApp.get "/combined_question_and_answer/:id" do
   erb :"combined_question_and_answers"
 end
 
-MyApp.get "/correct_answer/:question/:user_answer" do
-  @question = Question.find_by(params[:question])
+MyApp.get "/correct_answer/:question_id/:user_answer" do
+  @question = Question.find_by_id(params[:question_id])
   @user_answer = params[:user_answer]
     erb :"correct_answer"
   if @question.correct_answer == @user_answer
