@@ -8,6 +8,7 @@ var next = document.getElementById('next');
 var points = document.getElementById('result');
 var quiz = document.getElementById('quiz');
 var question_result = document.getElementById('question_result');
+var restart = document.getElementById('restart');
 
 begin.addEventListener("click", function() {
 
@@ -67,6 +68,7 @@ enter.addEventListener("click", function() {
   if (current_question >= 4) {
     enter.style.display = "none";
     next.style.display = "none";
+    restart.style.display = "block";
 
     result.innerHTML = "That's the end of our game--you have " + points_count + "/4 points! That's " + (points_count/4)*100 + "%."
   }
@@ -110,7 +112,10 @@ next.addEventListener("click", function() {
   choices_request.send();
   correct_request.send();
 
+});
 
+restart.addEventListener("click", function() {
+  window.location.reload();
 });
 
 };
