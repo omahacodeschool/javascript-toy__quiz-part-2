@@ -7,8 +7,7 @@ window.onload = function(){
   
   //Load page question
   var question = new XMLHttpRequest();
-    question.open("get", "http://localhost:9292/questions/#{count}");
-    
+    question.open("get", "http://localhost:9292/questions/"+ count);
   question.addEventListener("load", function(event){
   var the_question = event.target;
     var question_response = the_question.responseText;
@@ -21,12 +20,12 @@ window.onload = function(){
   var chioces = document.getElementById("chioces");
   
   var answer = new XMLHttpRequest();
-    answer.open("get", "http://localhost:9292/answers/#{count}");
+    answer.open("get", "http://localhost:9292/answers/"+ count);
     
   answer.addEventListener("load", function(event){
   var the_answer = event.target;
     var answer_response = the_answer.responseText;
-    chioces.innerHTML = answer_response;
+    chioces.innerHTML = answer_response; count++;
   });
 
   answer.send();
@@ -37,7 +36,7 @@ window.onload = function(){
   next.addEventListener("click", function(){
 
     var question = new XMLHttpRequest();
-      question.open("get", "http://localhost:9292/questions/#{count}");
+      question.open("get", "http://localhost:9292/questions/"+ count);
       
     question.addEventListener("load", function(event){
     var the_question = event.target;
@@ -50,7 +49,7 @@ window.onload = function(){
     var chioces = document.getElementById("chioces");
     
     var answer = new XMLHttpRequest();
-      answer.open("get", "http://localhost:9292/answers/#{count}");
+      answer.open("get", "http://localhost:9292/answers/"+ count);
       
     answer.addEventListener("load", function(event){
     var the_answer = event.target;
@@ -58,7 +57,7 @@ window.onload = function(){
       chioces.innerHTML = answer_response;
     });
 
-    answer.send(); count++;
+    answer.send();
   });
 
 };
