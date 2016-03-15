@@ -40,7 +40,7 @@ window.onload = function(){
   var submit_guess = document.getElementById("submitter")
   submit_guess.addEventListener("click", function() {
     guess = document.getElementById("answer").value;
-    request.open("GET", "http://localhost:9292/answer");
+    request.open("GET", "http://localhost:9292/answer/" + q);
     request.send();    
     request.addEventListener("load", function(event){
       var correct_answer = event.target;
