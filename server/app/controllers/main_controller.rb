@@ -9,5 +9,9 @@ end
 
 MyApp.get "/answers/:id" do
   @answers = Answer.where({"question_id" => params[:id]})
-  erb :"answers"
+  answers =[]
+  @answers.each do |answer|
+    answers << answer.content
+  end
+  answers.join(",")
 end
