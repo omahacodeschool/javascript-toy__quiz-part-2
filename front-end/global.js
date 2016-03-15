@@ -21,7 +21,7 @@ window.onload = function(){
 
   var begin = document.getElementById("beginButton");
 
-// This is probably a very bad approach, but I'm trying to get the information separately. 
+// This is probably not best practice, but I'm trying to get the information separately for now (until I can figure out a better approach that will help with organziation for displaying info).
 
   //HXR request for question data
   begin.addEventListener("click", function() {
@@ -32,10 +32,6 @@ window.onload = function(){
   //HXR request for answer data
     var requestAnswers = new XMLHttpRequest();
     requestAnswers.open("GET", " http://localhost:9292/answers/" + (currentQuestion +1));    
-
-  //HXR request for correct answer
-    var requestCorrect = new XMLHttpRequest();
-    requestCorrect.open("GET", " http://localhost:9292/answers/" + (currentQuestion +1));  
 
 
     //What to do with Question response
@@ -55,6 +51,7 @@ window.onload = function(){
       //Changes view once response is received
       begin.style.display = "none";
       answerField.style.display = "block";
+      submitter.style.display = "block";
 
       //Removes HTML from previous question, if there is any there.
       var node = document.getElementById('choices');
@@ -82,8 +79,7 @@ window.onload = function(){
       })();
 
     });
-
-    requestCorrect.send();
+    //sends HXR Requests as defined above
     requestQuestion.send();
     requestAnswers.send();    
   });
@@ -93,6 +89,32 @@ window.onload = function(){
   // Event Listener for Submit Button. 
   submitter.addEventListener("click", function() { 
 
+    //HXR request for correct answer
+      var requestCorrect = new XMLHttpRequest();
+      requestCorrect.open("GET", " http://localhost:9292/correct_answer/" + (currentQuestion +1)); 
+
+      //What to do once response is received for correct answer.
+      requestCorrect.addEventListener("load", function() {      
+
+      var correctRequest = event.target;
+      var correctText = correctRequest.responseText;
+
+      var answer = document.getElementById("answer").value;
+      answer = answer.toUpperCase(); 
+
+      var questionResult = document.getElementById("questionResult"); 
+      questionResult.style.display = "block";
+
+      if (answer == correctText) {
+        questionResult.innerHTML = ("That is correct!");
+        score ++;
+
+      } else {
+        questionResult.innerHTML = ("Sorry. " + correctText + " is the answer!");
+      }
+
+    });
+    requestCorrect.send();        
   });
 
 };  
