@@ -60,5 +60,23 @@ window.onload = function(){
     answer.send();
   });
 
+  //Submit button
+  var button = document.getElementById("submitter");
+
+  button.addEventListener("click", function(){
+    var guess = document.getElementById("answer").value;
+    
+    if (guess == answer_list[count]) {
+      alert("Correct!"); score++;
+    } else {
+      alert("Incorrect"); 
+    }
+    
+    count++;
+
+    if(count == question_list.length) {
+        alert("Thanks for playing! You got " + score + " out of " + count + " right!");
+    }
+  });
 };
 
