@@ -69,7 +69,7 @@ enter.addEventListener("click", function() {
     question_result.innerHTML = "Incorrect.";
   }
 
-  if (current_question >= 4) {
+  if (current_question >= 4 && user_response != "") {
     enter.style.display = "none";
     next.style.display = "none";
     restart.style.display = "block";
