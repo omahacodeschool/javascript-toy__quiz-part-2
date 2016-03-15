@@ -47,7 +47,15 @@ window.onload = function(){
       correct_answer = correct_answer.responseText
       console.log("answer = " + guess)
       console.log("correct answer is " + correct_answer)
-      if(guess === correct_answer){alert(correct_answer)};
+      if(guess === correct_answer){
+        right_answers++;
+        console.log("right_answers = " + right_answers);
+        document.getElementById("question_result").innerHTML = "CORRECT!";
+      } else {
+        document.getElementById("question_result").innerHTML = "SORRY! That is INCORRECT!";
+      };
+      hide_class_elements("q_stuff");
+      show_class_elements("a_stuff");
     });
   });
 };
