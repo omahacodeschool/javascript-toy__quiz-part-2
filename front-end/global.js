@@ -1,5 +1,6 @@
 
-
+var score = 0;
+var question = 1;
 
 function showOption(option_key, text){
 
@@ -31,6 +32,16 @@ function submitAnswer() {
     //result.innerHTML = userAnswer;
     var check_answer_request = new XMLHttpRequest();
     check_answer_request.open("GET", "http://localhost:9292/verify/1/" + userAnswer);
+
+    check_answer_request.addEventListener("load", function(event){
+      var the_check_answer_request = event.target;
+      var result_display = document.getElementById("question_result");
+      result_display.innerHTML = check_answer_request.responseText;
+      if (check_answer_request.responseText == "CORRECT!"){
+        score++;
+      }
+    })
+    check_answer_request.send();
   };
 
 
@@ -46,7 +57,7 @@ window.onload = function(){
 
   var question_request = new XMLHttpRequest();
     //creates a new Request Object
-  question_request.open("GET", "http://localhost:9292/question/1");
+  question_request.open("GET", "http://localhost:9292/question/" + question);
     // specifies the path and http verb for the request, using the open method 
   begin_button.target.style.display = "none";
 
@@ -79,7 +90,7 @@ window.onload = function(){
   var choices_request = new XMLHttpRequest();
     // creates a new Request Object to get the choices
 
-    choices_request.open("GET", "http://localhost:9292/choices/1");
+    choices_request.open("GET", "http://localhost:9292/choices/" + question);
     //specifies the path and http verb for the choices request
 
   choices_request.addEventListener("load", function(event){
