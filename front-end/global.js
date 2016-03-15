@@ -7,11 +7,14 @@ var enter = document.getElementById('submitter');
 var next = document.getElementById('next');
 var points = document.getElementById('result');
 var quiz = document.getElementById('quiz');
+var question_result = document.getElementById('question_result');
 
 begin.addEventListener("click", function() {
 
+  begin.style.display = "none";
   quiz.style.display = "block";
   enter.style.display = "block";
+
   var question_request = new XMLHttpRequest();
 
   question_request.open("get", "http://localhost:9292/question/"+current_question+"");
@@ -43,6 +46,13 @@ begin.addEventListener("click", function() {
 
 
 enter.addEventListener("click", function() {
+
+  enter.style.display = "none";
+  next.style.display = "block";
+  question_result.style.display = "block";
+  points.style.display = "block";
+
+
   var user_response = answer.value;
   var correct_answer = document.getElementById('correct_answer').innerHTML;
 
@@ -55,6 +65,9 @@ enter.addEventListener("click", function() {
   }
 
   if (current_question >= 4) {
+    enter.style.display = "none";
+    next.style.display = "none";
+
     result.innerHTML = "That's the end of our game--you have " + points_count + "/4 points! That's " + (points_count/4)*100 + "%."
   }
 
@@ -62,6 +75,11 @@ enter.addEventListener("click", function() {
 });
 
 next.addEventListener("click", function() {
+
+  next.style.display = "none";
+  enter.style.display = "block";
+  question_result.style.display = "none";
+
   current_question++
   answer.value=""
 
