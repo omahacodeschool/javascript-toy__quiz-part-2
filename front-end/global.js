@@ -16,18 +16,19 @@ window.onload = function(){
 // Still needs to be heavily modified 
 
 
+// user clicks "begin" button to start quiz. 
 
-// user clicks "begin" button to start quiz. Code from Part 2, Phase 1 (modified)
-
-  var begin = document.getElementById("beginButton");
-
-// This is probably not best practice, but I'm trying to get the information separately for now (until I can figure out a better approach that will help with organziation for displaying info).
-
-  //HXR request for question data
   begin.addEventListener("click", function() {
-    var requestQuestion = new XMLHttpRequest();
-    requestQuestion.open("GET", " http://localhost:9292/question/" + (currentQuestion +1));
+    //calls nextQuestion function to set up next question
+    nextQuestion();
+  });
 
+//NextQuestion() Function for setting up pretty much everything for the question:
+
+  function nextQuestion() {
+  //HXR Request for Question data
+    var requestQuestion = new XMLHttpRequest();
+    requestQuestion.open("GET", " http://localhost:9292/question/" + (currentQuestion +1)); 
 
   //HXR request for answer data
     var requestAnswers = new XMLHttpRequest();
@@ -81,8 +82,10 @@ window.onload = function(){
     });
     //sends HXR Requests as defined above
     requestQuestion.send();
-    requestAnswers.send();    
-  });
+    requestAnswers.send(); 
+  };
+
+
 
   //User Clicks 'submit' to submit answer.
 
@@ -99,16 +102,14 @@ window.onload = function(){
       var correctRequest = event.target;
       var correctText = correctRequest.responseText;
 
-
+      //Stores input from user as answer
       var answer = document.getElementById("answer").value;
-      answer = answer.toUpperCase(); 
 
       var questionResult = document.getElementById("questionResult"); 
       questionResult.style.display = "block";
 
-      debugger
-        
-      if (answer == correctText) {
+      //Displays message indicating if answer is correct or not
+      if (answer.toUpperCase() == correctText.toUpperCase()) {
         questionResult.innerHTML = ("That is correct!");
         score ++;
 
@@ -116,8 +117,17 @@ window.onload = function(){
         questionResult.innerHTML = ("Sorry. " + correctText + " is the answer!");
       }
 
-    });
-    requestCorrect.send();        
+    }); 
+    requestCorrect.send();
+    submitter.style.display = "none";
+    nextButton.style.display = "block"
+    answerField.style.display = "none";        
+  });
+
+  //User Clicks "Next" Button for next question
+  nextButton.addEventListener("click", function() {
+    currentQuestion ++;
+    nextQuestion();
   });
 
 };  
