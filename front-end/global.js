@@ -64,4 +64,12 @@ window.onload = function(){
       show_class_elements("a_stuff");
     });
   });
+  //
+  var next_question = document.getElementById("next") 
+  next.addEventListener ("click", function() {
+    q++
+    set_new_question("a_stuff")
+    show_class_elements("q_stuff")
+  });
+
 };
