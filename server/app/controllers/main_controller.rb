@@ -15,3 +15,8 @@ MyApp.get "/answers/:id" do
   end
   answers.join(",")
 end
+
+MyApp.get "/correct_answers/:id" do
+  question = Question.find_by_id(params[:id]) 
+  question.correct_answer
+end 
