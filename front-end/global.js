@@ -9,7 +9,11 @@ window.onload = function(){
 
     request.addEventListener("load", function(event) {
       var the_request = event.target;
-      console.log(the_request.responseText);
+      console.log("Question " + quizCount + ": " + the_request.responseText);
+      
+      var userAnswer = prompt(the_request.responseText);
+      console.log("User Answer: " + userAnswer);
+      quizCount++;
     });
     request.send();
   });
