@@ -34,8 +34,7 @@ window.onload = function(){
       var the_answer = event.target;
       question_result.innerHTML = the_answer.responseText;
       question_result.style.display = "block";
-      var score = 0;
-      
+
       if (response == the_answer.responseText) {
         score += 1;
       };

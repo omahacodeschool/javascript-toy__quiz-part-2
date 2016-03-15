@@ -19,6 +19,7 @@ MyApp.get "/correct_answer/:question_id/:user_answer" do
     # @score = 0
     if @correct_answer.content == @user_answer
       # @score += 1
+      return "Correct"
       erb :"correct_answer"
     else
       erb :"wrong_answer"
