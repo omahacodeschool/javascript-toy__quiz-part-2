@@ -10,10 +10,7 @@ window.onload = function(){
     });
 
     request.send();
-  });
-
-
-  response.addEventListener("?", function(){
+      response.addEventListener("?", function(){
     var next = new XMLHttpRequest();
     next.open("GET", "http://localhost:9292/correct_answer/1/response");
 
@@ -24,5 +21,5 @@ window.onload = function(){
 
       next.send();
     });
-
+  });
 };
