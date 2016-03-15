@@ -69,7 +69,7 @@ function getChoices(word) {
 }
 
 function getUserAnswer() {
-  var radios = getElementsByTagName('question${currentQuestion}Choices');
+  var radios = getElementsByName(`question${currentQuestion}Choices`);
   for (var i=0, len=radios.length; i<len; i++) {    
     if ( radios[i].checked ) {
       return radios[i].value;
@@ -83,10 +83,10 @@ function getAnswerCheck(answer) {
   validateAnswerRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices/" + answer);
   validateAnswerRequest.addEventListener("load", function(event) {
     var questionQuestion = document.getElementById('questionQuestion')
-    var validatedQuestionRequest = event.target;
-    var validatedQuestion = validatedQuestionRequest.responseText;
+    var validatedAnswernRequest = event.target;
+    var validatedAnswer = validatedAnswerRequest.responseText;
 
-    if (validatedQuestion == "true") {
+    if (validatedAnswer == "true") {
      correctNotification.style.display = "block";
     } else {
       wrongtNotification.style.display ="block";
@@ -109,7 +109,7 @@ submitButton.addEventListener("click", function(event) {
   var userAnswer = getUserAnswer()
 
   if (userAnswer != null) {
-
+    getAnswerCheck(userAnswer)
   }
 });
   
