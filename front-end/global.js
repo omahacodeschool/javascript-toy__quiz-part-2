@@ -11,6 +11,7 @@ window.onload = function(){
   question_request.open("GET", "http://localhost:9292/question/1");
     // specifies the path and http verb for the request, using the open method 
 
+
   question_request.addEventListener("load", function(event){
     var the_question_request = event.target;
 
@@ -36,6 +37,37 @@ window.onload = function(){
   });
 
   question_request.send();
+
+  var choices_request = new XMLHttpRequest();
+    // creates a new Request Object to get the choices
+
+    choices_request.open("GET", "http://localhost:9292/choices/1");
+    //specifies the path and http verb for the choices request
+
+  choices_request.addEventListener("load", function(event){
+    var the_choices_request = event.target;
+    var choices_element = document.getElementById("choices");
+    var choices_list = document.createElement("p");
+    var options_string = the_choices_request.responseText;
+    var options_array = options_string.split("***");
+    var text = "";
+    for (i = 0; i < options_array.length; i++) {
+    text += options_array[i] + "<br>";
+  }
+
+    choices_list.innerHTML = text;
+    choices_element.appendChild(choices_list);
+
+    //choices_list = document.createElement("OL");
+      //options_list.type = "A";
+      //options_list.id = "options";
+
+
+  });
+
+  choices_request.send();
+
+
 
   });
 

@@ -23,3 +23,9 @@ MyApp.get "/question/:id" do
   @question = Question.find_by_id(params[:id])
   return @question.content
 end
+
+MyApp.get "/choices/:id" do 
+  @question = Question.find_by_id(params[:id])
+  @choices = @question.answers
+  erb :"choices"
+end
