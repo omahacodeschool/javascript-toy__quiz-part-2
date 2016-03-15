@@ -1,7 +1,7 @@
 
 var score = 0;
 var question = 1;
-
+var quizQuestionCount;
 
 function getQuestionCount(){
   var question_count_request = new XMLHttpRequest();
@@ -11,9 +11,9 @@ function getQuestionCount(){
   question_count_request.open("GET", "http://localhost:9292/quiz");
   question_count_request.addEventListener("load", function(event){
     var the_question_count_request = event.target;
-    var question_count = the_question_count_request.responseText;
+    quizQuestionCount = parseInt(the_question_count_request.responseText);
     var question_count_element = document.getElementById("question_count");
-    question_count_element.innerHTML = question_count;
+    question_count_element.innerHTML = "Total Questions in Quiz: " + quizQuestionCount;
   });
   question_count_request.send();
 };
@@ -79,6 +79,12 @@ function submitAnswer() {
       if (check_answer_request.responseText == "CORRECT!"){
         score++;
       }
+      if (question > quizQuestionCount){
+        var total_result = document.getElementById("total_result");
+        total_result.innerHTML = "You got " + score + " out of " + quizQuestionCount + " correct.";
+        var quiz_elements = document.getElementById("quiz");
+        quiz_elements.style.display = "none";
+      }
     });
     check_answer_request.send();
     question++;
@@ -93,6 +99,10 @@ function submitAnswer() {
       var question_element = document.getElementById("question");
       question_element.innerHTML = "";
       question_element.innerHTML = the_question_request.responseText;
+      if (question >= quizQuestionCount) {
+       var next = document.getElementById("next");
+       next.style.display = "none";
+    }
     });
     question_request.send();
   };
