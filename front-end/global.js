@@ -14,6 +14,7 @@ function getQuestionCount(){
     var question_count = the_question_count_request.responseText;
     quizQuestionCount = parseInt(question_count);
   });
+  quizQuestionCount = parseInt(question_count_request.responseText);
   question_count_request.send();
   return quizQuestionCount;
 };
