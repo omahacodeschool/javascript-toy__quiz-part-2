@@ -25,7 +25,7 @@ window.onload = function(){
   answer.addEventListener("load", function(event){
   var the_answer = event.target;
     var answer_response = the_answer.responseText;
-    chioces.innerHTML = answer_response; count++;
+    chioces.innerHTML = answer_response; 
   });
 
   answer.send();
@@ -54,7 +54,7 @@ window.onload = function(){
     answer.addEventListener("load", function(event){
     var the_answer = event.target;
       var answer_response = the_answer.responseText;
-      chioces.innerHTML = answer_response;
+      chioces.innerHTML = answer_response; count++;
     });
 
     answer.send();
