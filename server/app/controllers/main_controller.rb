@@ -8,9 +8,9 @@ MyApp.get "/answers/:id" do
   erb :"answer_index"
 end
 
-MyApp.get "/result/1" do
+MyApp.get "/result/:id" do
   @results = [] 
   @results = Answer.where("correct" => "true")
-  @result = @results[1]
+  @result = @results[:id]
   erb :"results"
 end

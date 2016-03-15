@@ -65,8 +65,19 @@ window.onload = function(){
 
   button.addEventListener("click", function(){
     var guess = document.getElementById("answer").value;
+
+    var result = new XMLHttpRequest();
+      result.open("get", "http://localhost:9292/result/"+ count);
+      
+    result.addEventListener("load", function(event){
+    var the_result = event.target;
+      var result_response = the_result.responseText;
+      chioces.innerHTML = result_response; count++;
+    });
+
+    result.send();
     
-    if (guess == answer_list[count]) {
+    if (guess == result) {
       alert("Correct!"); score++;
     } else {
       alert("Incorrect"); 
