@@ -77,7 +77,6 @@ window.onload = function(){
   choices_request.addEventListener("load", function(event){
     var the_choices_request = event.target;
     var choices_element = document.getElementById("choices");
-    var choices_list = document.createElement("p");
     var options_string = the_choices_request.responseText;
     var response_array = options_string.split("***");
     var options_array = response_array.slice(1);
@@ -86,19 +85,13 @@ window.onload = function(){
       options_list.type = "A";
       options_list.id = "options";
     
-    //var text = "";
     for (i = 0; i < options_array.length; i++) {
       var option = showOption((i + 1), options_array[i]);
       options_list.appendChild(option);
   }
-    choices_list.innerHTML = options_array + options_array.length;
 
     choices_element.appendChild(options_list);
-    choices_element.appendChild(choices_list);
 
-    //choices_list = document.createElement("OL");
-      //options_list.type = "A";
-      //options_list.id = "options";
 
 
   });
@@ -108,6 +101,10 @@ window.onload = function(){
 
 
   });
+
+
+  var submitter = document.getElementById("submitter");
+
 
 
 
