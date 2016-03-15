@@ -39,29 +39,26 @@ function getQuestion() {
 
   questionRequest.send();
 }
-function getQuestionAnswerCount() {
-  var answerCountRequest = new XMLHttpRequest();''
-  answerCountRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion +"/choices");
 
-  answerCountRequest.addEventListener("load", function(event) {
-    var answerCountResponse = event.target;
-    var choiceCount = answerCountResponse.responseText;
-  });
-  answerCountRequest.send();
-}
 
 function getChoices(word) {
   var answerRequest = new XMLHttpRequest();
   var answerForm = document.getElementById('answerForm');
-  answerRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices/" + currentChoice);
+  answerRequest.open("GET", "http://localhost:9292/questions/" + currentQuestion + "/choices");
   answerRequest.addEventListener("load", function(event) {
-    var word = document.createElement("p");
     var questionQuestion = document.getElementById('questionQuestion')
     var the_request = event.target;
-    word.innerHTML = the_request.responseText;
-    questionQuestion.appendChild(word);
+    var choices = the_request.responseText;
     startButton.style.display = "none";
-    console.log(choices)
+    alert(choices)
+
+    for (var choice in choices){
+      var questionChoice = document.createElement("p")
+      questionChoice.innerHTML = choices[choice]
+      questionChoice.className = 'QuestionChoices';
+      questionQuestion.appendChild(questionChoice);
+      console.log(choice)
+    }
   });
 
   answerRequest.send();
@@ -69,11 +66,8 @@ function getChoices(word) {
 
 startButton.addEventListener("click", function(event) { 
   getQuestion()
-  getQuestionAnswerCount()
-  while (currentChoice <= choiceCount) {
-    ++currentChoice
-    getChoices(`question${currentChoice}`)
-  }
+  getChoices()
+  
 });
   
 
