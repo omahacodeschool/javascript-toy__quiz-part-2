@@ -7,7 +7,7 @@ window.onload = function(){
   var submit_button = document.getElementById("submitter");
   var next_button = document.getElementById("next");
   var result = document.getElementById("total_result");
-  var correct_answers = 0;
+  var score = 0;
   var question_number = 1
 
 
@@ -15,7 +15,7 @@ window.onload = function(){
     begin_button.style.display = "none";
     quiz.style.display = "block";
     var request = new XMLHttpRequest();
-    request.open("GET", "http://localhost:9292/combined_question_and_answer/1");
+    request.open("GET", "http://localhost:9292/combined_question_and_answer/1/" + score);
 
     request.addEventListener("load", function(event){
       var the_request = event.target;
@@ -28,7 +28,7 @@ window.onload = function(){
   submit_button.addEventListener("click", function(){
     var response = document.getElementById("answer").value;
     var submit = new XMLHttpRequest();
-    submit.open("GET", "http://localhost:9292/correct_answer/"+ question_number+ "/" + response);
+    submit.open("GET", "http://localhost:9292/correct_answer/"+ question_number+ "/" + response + "/" + score);
 
     submit.addEventListener("load", function(event){
       var the_answer = event.target;
@@ -44,7 +44,7 @@ window.onload = function(){
     question_number += 1;
     question_result.style.display = "none";
     var next = new XMLHttpRequest();
-    next.open("GET", "http://localhost:9292/combined_question_and_answer/" + question_number);
+    next.open("GET", "http://localhost:9292/combined_question_and_answer/" + question_number + "/" + score);
 
     next.addEventListener("load", function(event){
       var the_next_request = event.target;
