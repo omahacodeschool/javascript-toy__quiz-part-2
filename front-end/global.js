@@ -45,7 +45,7 @@ window.onload = function(){
     request.addEventListener("load", function(event){
       var correct_answer = event.target;
       console.log("answer =" + guess)
-      console.log("correct answer is" + correct_answer)
+      console.log("correct answer is" + correct_answer.responseText)
     });
   });
 };

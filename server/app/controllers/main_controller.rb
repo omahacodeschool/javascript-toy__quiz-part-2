@@ -9,5 +9,6 @@ end
 
 MyApp.get "/answer" do
   @question = Question.find_by_id(1)
+  @answer = @question.correct_answer
   erb :"result"
 end
