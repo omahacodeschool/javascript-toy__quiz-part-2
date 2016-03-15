@@ -7,6 +7,7 @@ function showOption(option_key, text){
       radio.type = "radio";
       radio.id = i;
       radio.name = "option";
+      radio.value = text;
     var label = document.createElement("label");
       label.htmlFor = i;
       label.innerHTML = text;
@@ -21,9 +22,16 @@ function showOption(option_key, text){
     var options_list = document.createElement("OL");
       options_list.type = "A";
       options_list.id = ((i + 1) + "options");
-  }
+  };
 
 
+function submitAnswer() {
+    var userAnswer = document.querySelector('input[name="option"]:checked').value;
+    var result = document.getElementById("question_result");
+    //result.innerHTML = userAnswer;
+    var check_answer_request = new XMLHttpRequest();
+    check_answer_request.open("GET", "http://localhost:9292/verify/1/" + userAnswer);
+  };
 
 
 
@@ -32,7 +40,7 @@ window.onload = function(){
 
   var begin_button = document.getElementById("begin_button");
 
-  begin_button.addEventListener("click", function() {
+  begin_button.addEventListener("click", function(begin_button) {
 
 
 
@@ -40,7 +48,7 @@ window.onload = function(){
     //creates a new Request Object
   question_request.open("GET", "http://localhost:9292/question/1");
     // specifies the path and http verb for the request, using the open method 
-
+  begin_button.target.style.display = "none";
 
   question_request.addEventListener("load", function(event){
     var the_question_request = event.target;
@@ -86,7 +94,7 @@ window.onload = function(){
       options_list.id = "options";
     
     for (i = 0; i < options_array.length; i++) {
-      var option = showOption((i + 1), options_array[i]);
+      var option = showOption(i, options_array[i]);
       options_list.appendChild(option);
   }
 
@@ -104,6 +112,11 @@ window.onload = function(){
 
 
   var submitter = document.getElementById("submitter");
+
+  submitter.addEventListener("click", function(submitter){
+    submitAnswer(submitter);
+  });
+  
 
 
 
