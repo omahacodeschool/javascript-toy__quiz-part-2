@@ -17,7 +17,7 @@ window.onload = function(){
   question.send();
 
   //load page chioces
-  var chioces = document.getElementById("chioces");
+  var choices = document.getElementById("choices");
   
   var answer = new XMLHttpRequest();
     answer.open("get", "http://localhost:9292/answers/"+ count);
@@ -25,7 +25,7 @@ window.onload = function(){
   answer.addEventListener("load", function(event){
   var the_answer = event.target;
     var answer_response = the_answer.responseText;
-    chioces.innerHTML = answer_response; 
+    choices.innerHTML = answer_response; 
   });
 
   answer.send();
@@ -46,7 +46,7 @@ window.onload = function(){
 
     question.send();
 
-    var chioces = document.getElementById("chioces");
+    var choices = document.getElementById("choices");
     
     var answer = new XMLHttpRequest();
       answer.open("get", "http://localhost:9292/answers/"+ count);
@@ -54,7 +54,7 @@ window.onload = function(){
     answer.addEventListener("load", function(event){
     var the_answer = event.target;
       var answer_response = the_answer.responseText;
-      chioces.innerHTML = answer_response; 
+      choices.innerHTML = answer_response; 
     });
 
     answer.send();
@@ -79,7 +79,7 @@ window.onload = function(){
     result.send();
   });
 
-    if (guess == question_results) {
+    if (guess == question_results[count]) {
       alert("Correct!"); score++;
     } else {
       alert("Incorrect"); 
