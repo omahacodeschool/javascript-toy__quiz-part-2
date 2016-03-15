@@ -29,7 +29,7 @@ window.onload = function(){
   begin.addEventListener("click", function() {
     hide_class_elements("beginning_stuff")
     show_class_elements("q_stuff")
-    request.open("GET", "http://localhost:9292/info");
+    request.open("GET", "http://localhost:9292/info/" + q);
     request.send();    
     request.addEventListener("load", function(event){
       var question_details = event.target;

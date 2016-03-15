@@ -2,13 +2,13 @@ MyApp.get "/" do
   erb :"home"
 end
 
-MyApp.get "/info" do
-  @question = Question.find_by_id(1)
+MyApp.get "/info/:id" do
+  @question = Question.find_by_id(params[:id])
   erb :"info"
 end
 
-MyApp.get "/answer" do
-  @question = Question.find_by_id(1)
+MyApp.get "/answer/:id" do
+  @question = Question.find_by_id(params[:id])
   @answer = @question.correct_answer
   erb :"result"
 end
