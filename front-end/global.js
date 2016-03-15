@@ -33,8 +33,7 @@ window.onload = function(){
     request.send();    
     request.addEventListener("load", function(event){
       var question_details = event.target;
-      answer = prompt(question_details.responseText);
-      console.log(answer)
+      document.getElementById("question").innerHTML = question_details.responseText
     });
   });  
 };
