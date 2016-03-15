@@ -22,12 +22,10 @@ window.onload = function(){
       array[i].style.display = "block"
     }
   };
-  hide_class_elements("q_stuff")
-  hide_class_elements("a_stuff")
-  //
-  var begin = document.getElementById("begin_button")
-  begin.addEventListener("click", function() {
-    hide_class_elements("beginning_stuff")
+  //sets the new question from current value of q (the question counter)
+  //thingstohide is the class name of what should GO AWAY when this question is set--either beginning_stuff at the start or a_stuff when coming from "next"
+  function set_new_question(thingstohide){
+    hide_class_elements(thingstohide)
     show_class_elements("q_stuff")
     request.open("GET", "http://localhost:9292/info/" + q);
     request.send();    
@@ -35,6 +33,14 @@ window.onload = function(){
       var question_details = event.target;
       document.getElementById("question").innerHTML = question_details.responseText
     });
+  };
+  //
+  hide_class_elements("q_stuff")
+  hide_class_elements("a_stuff")
+  //
+  var begin = document.getElementById("begin_button")
+  begin.addEventListener("click", function() {
+    set_new_question("beginning_stuff")
   }); 
   //
   var submit_guess = document.getElementById("submitter")
