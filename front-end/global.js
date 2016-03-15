@@ -8,14 +8,14 @@ window.onload = function(){
   var next_button = document.getElementById("next");
   var result = document.getElementById("total_result");
   var score = 0;
-  var question_number = 1
+  var question_number = 1;
 
 
   begin_button.addEventListener("click", function(){
     begin_button.style.display = "none";
     quiz.style.display = "block";
     var request = new XMLHttpRequest();
-    request.open("GET", "http://localhost:9292/combined_question_and_answer/1/" + score);
+    request.open("GET", "http://localhost:9292/combined_question_and_answer/1/0");
 
     request.addEventListener("load", function(event){
       var the_request = event.target;
@@ -28,12 +28,17 @@ window.onload = function(){
   submit_button.addEventListener("click", function(){
     var response = document.getElementById("answer").value;
     var submit = new XMLHttpRequest();
-    submit.open("GET", "http://localhost:9292/correct_answer/"+ question_number+ "/" + response + "/" + score);
+    submit.open("GET", "http://localhost:9292/correct_answer/"+ question_number+ "/" + response);
 
     submit.addEventListener("load", function(event){
       var the_answer = event.target;
       question_result.innerHTML = the_answer.responseText;
       question_result.style.display = "block";
+      var score = 0;
+      
+      if (response == the_answer.responseText) {
+        score += 1;
+      };
     });
 
     submit.send();

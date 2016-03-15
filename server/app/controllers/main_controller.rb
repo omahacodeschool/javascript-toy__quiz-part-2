@@ -12,20 +12,20 @@ MyApp.get "/combined_question_and_answer/:id/:score" do
   end
 end
 
-MyApp.get "/correct_answer/:question_id/:user_answer/:score" do
+MyApp.get "/correct_answer/:question_id/:user_answer" do
     @question = Question.find_by_id(params[:question_id])
     @user_answer = params[:user_answer]
     @correct_answer = Answer.where("question_id" => params[:question_id], "correct" => true).first
-    @score = 0
+    # @score = 0
     if @correct_answer.content == @user_answer
-      @score += 1
+      # @score += 1
       erb :"correct_answer"
     else
       erb :"wrong_answer"
     end
 end
 
-MyApp.get "/score/:score"
+MyApp.get "/score/:score" do
   @score = params[:score]
   @total = Question.all.length
   erb :"score"
