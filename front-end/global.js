@@ -1,3 +1,33 @@
+
+
+
+function showOption(option_key, text){
+
+    var radio = document.createElement("input");
+      radio.type = "radio";
+      radio.id = i;
+      radio.name = "option";
+    var label = document.createElement("label");
+      label.htmlFor = i;
+      label.innerHTML = text;
+      label.appendChild(radio);
+    var option_item = document.createElement("li");
+      option_item.appendChild(label);
+      return option_item;
+  };
+
+  function createOptionsList(){
+    var i = 0;
+    var options_list = document.createElement("OL");
+      options_list.type = "A";
+      options_list.id = ((i + 1) + "options");
+  }
+
+
+
+
+
+
 window.onload = function(){
 
   var begin_button = document.getElementById("begin_button");
@@ -50,8 +80,14 @@ window.onload = function(){
     var choices_list = document.createElement("p");
     var options_string = the_choices_request.responseText;
     var options_array = options_string.split("***");
-    var text = "";
+
+    var options_list = document.createElement("OL");
+      options_list.type = "A";
+      options_list.id = "options";
+    
+    //var text = "";
     for (i = 0; i < options_array.length; i++) {
+      var option = showOption((i + 1), options_array[i])
     text += options_array[i] + "<br>";
   }
 
