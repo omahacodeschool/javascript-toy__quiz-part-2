@@ -16,14 +16,14 @@ MyApp.get "/questions/:id/choices" do
 end
 
 MyApp.get "/questions/:id/choices/:answer" do
-  @questions = Question.find_by_id(params[:id])
-  @user_choice = Answer.find_by("question_id" => @questions.id, "content" => params[:answer])
-  @correct_answer = @questions.correct_answer
-  
-  if @user_choice.content == @correct_answer.content
-    user_was_correct = true
+  @question = Question.find_by_id(params[:id])
+  @user_choice = Answer.where({"question_id" => @question.id, "content" => params[:answer]}).pluck(:id)
+  @correct_answer = Answer.where({"question_id" => @question.id, "correct" => true}).pluck(:id)
+
+  if @user_choice != @correct_answer
+    @user_was_correct = false
   else
-    user_was_correct = false
+    @user_was_correct = true
   end
 
   erb :"/validate_answer"
