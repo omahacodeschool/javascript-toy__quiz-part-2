@@ -1,6 +1,6 @@
 window.onload = function(){
 
-  //INITIAL NECESSARY VARIABLES
+  //INITIAL NECESSARY VARIABLES 
   //-------------------------------------------------------------------------------
   var ScoreCount = 0; // Variable keeps track of the number of questions correctly answered by the user.
   var currentQuestion = 0; // Variable keeps track of question the user is currently on.  
@@ -19,21 +19,6 @@ window.onload = function(){
 
   //FUNCTIONS
   //-----------------------------------------------------------------------------------
-  
-  // Queries server at page load to get the total number of questions in the database. 
-  // Sets the returned value to questionCount. questionCount is parsed into an interger for future features
-  function getTotalQuestionsCount() {
-    var questionCountRequest = new XMLHttpRequest();
-    questionCountRequest.open("GET", "http://localhost:9292/questions");
-
-    questionCountRequest.addEventListener("load", function(event) {
-      var questionCountResponse = event.target;
-      questionCount = questionCountResponse.responseText;
-      parseInt(questionCount)
-    });
-    questionCountRequest.send();
-  }
-
   //Function to query the question text from the server and sets it to questionQuestion div's inner HTML
   function getQuestion() {
     var questionRequest = new XMLHttpRequest();;
@@ -109,65 +94,96 @@ window.onload = function(){
 
     validateAnswerRequest.send();
   }
+
+  function startGame() {
+    startButton.style.display = "none";
+    getQuestion()
+    getChoices()
+  }
+
+
+  function nextQuestion() {
+    scoreCountNotice.innerHTML = "Remaining Questions: " + (questionCount - currentQuestion) + "."
+    scoreCountNotice.appendChild(document.createElement('br'));
+    startButton.style.display = "none";
+    submitButton.style.display = "block";
+    wrongtNotification.style.display ="none";
+    correctNotification.style.display = "none";
+    $("#questionChoices").empty()
+    questionQuestion.style.display = "none";
+    questionChoices.style.display = "block";
+    getQuestion()
+    getChoices()
+  }
+
+  function endGame() {
+    wrongtNotification.style.display ="none";
+    correctNotification.style.display = "none";
+    $("#questionChoices").empty()
+    questionQuestion.style.display = "none";
+    questionChoices.style.display = "block";
+    startButton.innerHTML = "Play Again"
+    startButton.style.display = "block";
+    scoreCountNotice.innerHTML = "Correct Questions: " + ScoreCount + " -- Incorrect Questions: " + (questionCount -  ScoreCount) + " -- Final Score: " + ((parseFloat(ScoreCount) / parseFloat(questionCount)) * 100) + "%."
+    gameEnded.style.display = "block"; // displays end game message
+    ScoreCount = 0; // Variable keeps track of the number of questions correctly answered by the user.
+    currentQuestion = 0;
+  }
+
+  function submitAndCheckChoice() {
+    startButton.innerHTML = "Next"
+    questionQuestion.style.display = "none";
+    questionChoices.style.display = "none";
+    startButton.style.display = "block";
+    submitButton.style.display = "none";
+    var userAnswer = getUserAnswer()
+    if (userAnswer != null) {
+      getAnswerCheck(userAnswer)
+    } else {
+    submitButton.style.display = "block";
+    startButton.style.display = "none";
+    }
+  }
   //--------------------------------------------------------------------------
 
 
   //PROGRAM FUNCTIONALITY
   //------------------------------------------------------------------------
-  
-  // Get total number of questions by querying the server 
-  getTotalQuestionsCount()
+  // Queries server at page load to get the total number of questions in the database. 
+  // Sets the returned value to questionCount. questionCount is parsed into an interger for future features
+  //----------------------------------------------------
+  var questionCountRequest = new XMLHttpRequest();
+  questionCountRequest.open("GET", "http://localhost:9292/questions");
 
-  //
+  questionCountRequest.addEventListener("load", function(event) {
+    var questionCountResponse = event.target;
+    questionCount = questionCountResponse.responseText;
+    parseInt(questionCount)
+  });
+
+  questionCountRequest.send();
+  //---------------------------------------
+
+
   startButton.addEventListener("click", function(event) { 
-    startButton.style.display = "none";
     ++currentQuestion
-    getQuestion()
-    getChoices()
+    gameEnded.style.display = "none";
+
+    if (currentQuestion <=  0) {
+      startGame()
+    } else if (currentQuestion < questionCount) {
+      nextQuestion()
+    } else {
+      endGame()
+    }
     
   });
 
   submitButton.addEventListener("click", function(event) {
-    questionQuestion.style.display = "none";
-    questionChoices.style.display = "none";
-    nextButton.style.display = "block";
-    submitButton.style.display = "none";
-    var userAnswer = getUserAnswer()
-    if (userAnswer != null) {
-      getAnswerCheck(userAnswer)
-    }
-  });
-
-  nextButton.addEventListener("click", function(event) { 
-
-   if (currentQuestion < questionCount) {
-      scoreCountNotice.innerHTML = "Remaining Questions: " + (questionCount - currentQuestion) + "."
-      scoreCountNotice.appendChild(document.createElement('br'));
-      nextButton.style.display = "none";
-      submitButton.style.display = "block";
-      wrongtNotification.style.display ="none";
-      correctNotification.style.display = "none";
-      $("#questionChoices").empty()
-      questionQuestion.style.display = "none";
-      questionChoices.style.display = "block";
-      ++currentQuestion
-      getQuestion()
-      getChoices()
-    } else {
-      scoreCountNotice.innerHTML = "Correct Questions: " + ScoreCount + " -- Incorrect Questions: " + (questionCount -  ScoreCount) + " -- Final Score: " + ((parseFloat(ScoreCount) / parseFloat(questionCount)) * 100) + "%."
-      allQuestions.style.display = "none"; //hides all items in parent question div
-      gameEnded.style.display = "block"; // displays end game message
-      restartButton.style.display = "block"; //dispalys restart button that will refresh page so that user can play again.
-    }
-    
-  });
-
-
-  //event triggers when restartButton is clicked. Only visible when user is out of questions. WIll reload the page so that user can play again.
-  restartButton.addEventListener("click", function() {
-    location.reload();
+   submitAndCheckChoice()
   });
 
 };
+
 //-------------------------------------------------------------------------
 
