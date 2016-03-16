@@ -1,3 +1,5 @@
+# DB.define_column("questions", "content", "text")
+
 class Question < ActiveRecord::Base
 
   # Returns an ActiveRecord::Relation (collection) of Answer objects.
