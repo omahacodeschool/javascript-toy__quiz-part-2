@@ -3,7 +3,7 @@ window.onload = function(){
 // Initialization of variables
   var currentQuestion = 0,
      score = 0,
-     chose;
+     quizLength;
 
   var submitter = document.getElementById('submitter');
   var nextButton = document.getElementById("nextButton");
@@ -11,13 +11,11 @@ window.onload = function(){
   var question = document.getElementById("question");    
   var totalResult = document.getElementById("totalResult"); 
   var choices = document.getElementById("choices");
-  var quizLength = 4; 
 
 
 // user clicks "begin" button to start quiz. 
 
   begin.addEventListener("click", function() {
-    currentQuestion ++;
     //calls nextQuestion function to set up next question
     nextQuestion();
   });
@@ -25,11 +23,17 @@ window.onload = function(){
 //NextQuestion() Function for setting up pretty much everything for the question:
 
   function nextQuestion() {
-  //XHR Request for Question data
+  //Sets state of current question
+  currentQuestion ++;       
+  //New XHR Request for Question data
     var requestQuestion = new XMLHttpRequest();
     requestQuestion.open("GET", " http://localhost:9292/question/" + (currentQuestion)); 
 
-  //XHR request for answer data
+  //New XHR request for quiz length.
+    var requestQuizLength = new XMLHttpRequest();
+    requestQuizLength.open("GET", " http://localhost:9292/quiz_length");       
+
+  //New XHR request for answer data
     var requestAnswers = new XMLHttpRequest();
     requestAnswers.open("GET", " http://localhost:9292/answers/" + (currentQuestion));    
 
@@ -40,6 +44,12 @@ window.onload = function(){
       var questionText = questionRequest.responseText;
       question.innerHTML = questionText;
     });
+
+    //What to do with Quiz length response
+    requestQuizLength.addEventListener("load", function() {
+      var quizLengthRequest = event.target;
+      quizLength = parseInt(quizLengthRequest.responseText);
+    });        
 
     //What to do with Answer response
     requestAnswers.addEventListener("load", function() {
@@ -57,26 +67,6 @@ window.onload = function(){
       while (node.hasChildNodes()) {
           node.removeChild(node.firstChild);
       }
-      //Self-Executing function that creates a ul with list items, each filled with answer from test. This will come in handy, I believe, if I want to do other visual things with each answer in the future.
-
-      // (function(){
-      //   var ul = document.createElement('ul');
-      //   ul.setAttribute('id','choiceList');
-
-
-      //   document.getElementById('choices').appendChild(ul);
-      //   answerText.forEach(showChoices);
-
-      //   function showChoices(element, index, arr) {
-
-      //     var li = document.createElement('li');
-
-      //     ul.appendChild(li);
-      //     li.innerHTML = li.innerHTML + element;
-      //   }
-      // })();
-
-//******* TEST METHOD FOR CREATING RADIO BUTTONS
 
       (function(){             
         answerText.forEach(function(answer) {
@@ -92,13 +82,12 @@ window.onload = function(){
           choices.appendChild(input);
         });        
       })();
-
-//******** END OF TEST METHOD
-
+      
     });
     //sends XHR Requests as defined above
     requestQuestion.send();
-    requestAnswers.send(); 
+    requestQuizLength.send();      
+    requestAnswers.send();  
   };
 
   //User Clicks 'submit' to submit answer.
@@ -169,7 +158,6 @@ window.onload = function(){
 
   nextButton.addEventListener("click", function() { 
   nextButton.style.display = "none";
-  currentQuestion ++;
   nextQuestion();  
   questionResult.style.display = "none";
   });
