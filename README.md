@@ -10,7 +10,7 @@ As with the previous version, this assignment is split into two parts. Again, it
 
 Please start out by creating a PR for this repo, and don't forget to push your code every 30-40 minutes just so we can see how its going.
 
-## More Details
+## More Details 
 
 Separating the front-end and server-side of the application requires the use of the request/response cycle, but it would be annoying for the user to sit through repeated page loads for each new question. So you'll be using the XHR object in JavaScript to make requests to the server behind the scenes. Consider this sequence diagram:
 
