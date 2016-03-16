@@ -8,5 +8,5 @@ Myapp.post "/answer" do
   #some data comes in with form
   #check to see if data matches answer in database
   #assign boolean to varialbe
-  #erb response page should have if true send this if false send that  
+  #erb response page should have if true send this if false send that    
 end
