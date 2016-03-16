@@ -30,7 +30,7 @@ window.onload = function(){
     hide_class_elements(thingstohide)
     show_class_elements("q_stuff")
     question_request.open("GET", "http://localhost:9292/info/" + q);
-    question_request.send();    
+    question_request.send();  
     question_request.addEventListener("load", function(event){
       var question_details = event.target;
       document.getElementById("question").innerHTML = question_details.responseText
