@@ -34,10 +34,18 @@ window.onload = function(){
     question_request.open("GET", "http://localhost:9292/info/" + q);
     question_request.send();  
     question_request.addEventListener("load", function(event){
-      var question_details = event.target;
-      question_array = question_details.response
-      document.getElementById("question").innerHTML = JSON.parse(question_array)[0]
+      var question_array = JSON.parse(event.target.response);
+      //question_array = question_details.response
+      document.getElementById("question").innerHTML = question_array[0]
+      assign_choices_to_buttons(question_array[1])
     });
+  };
+  function assign_choices_to_buttons(choicesarray){
+    var choiceInputs = document.querySelectorAll(".choices input");  
+    for (var i = choiceInputs.length - 1; i >= 0; i--) {
+      document.querySelectorAll("#label"+(i+1))[0].innerHTML = choicesarray[i];
+      choiceInputs[i].value = choicesarray[i];
+    }; 
   };
   //
   function get_the_answer(guess) {
