@@ -128,6 +128,8 @@ window.onload = function(){
   });
 
   submitButton.addEventListener("click", function(event) {
+    questionQuestion.style.display = "none";
+    questionChoices.style.display = "none";
     nextButton.style.display = "block";
     submitButton.style.display = "none";
     var userAnswer = getUserAnswer()
@@ -146,6 +148,8 @@ window.onload = function(){
       wrongtNotification.style.display ="none";
       correctNotification.style.display = "none";
       $("#questionChoices").empty()
+      questionQuestion.style.display = "none";
+      questionChoices.style.display = "block";
       ++currentQuestion
       getQuestion()
       getChoices()
