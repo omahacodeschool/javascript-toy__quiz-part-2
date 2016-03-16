@@ -11,13 +11,6 @@ var question_result = document.getElementById('question_result');
 var restart = document.getElementById('restart');
 var question_amount = document.getElementById('question_amount');
 
-var question_amount_request = new XMLHttpRequest();
-question_amount_request.open("get", "http://localhost:9292/questions/amount");
-question_amount_request.addEventListener("load", function(event){
-  question_amount.innerHTML = event.target.responseText;
-});
-question_amount_request.send();
-
 begin.addEventListener("click", function() {
 
   begin.style.display = "none";
@@ -45,11 +38,20 @@ begin.addEventListener("click", function() {
     correct_answer.innerHTML = event.target.responseText;
   });
 
+  var question_amount_request = new XMLHttpRequest();
+
+  question_amount_request.open("get", "http://localhost:9292/questions/amount");
+  question_amount_request.addEventListener("load", function(event){
+  question_amount.innerHTML = event.target.responseText;
+});
+
+
   points.innerHTML = "You have " + points_count + " point(s).";
 
   question_request.send();
   choices_request.send();
   correct_request.send();
+  question_amount_request.send();
 
 });
 
@@ -77,12 +79,12 @@ enter.addEventListener("click", function() {
     question_result.innerHTML = "Incorrect.";
   }
 
-  if (current_question >= 4 && user_response != "") {
+  if (current_question >= question_amount.innerHTML && user_response != "") {
     enter.style.display = "none";
     next.style.display = "none";
     restart.style.display = "block";
 
-    result.innerHTML = "That's the end of our game--you have " + points_count + "/4 points! That's " + (points_count/4)*100 + "%."
+    result.innerHTML = "That's the end of our game--you have " + points_count + "/" + question_amount.innerHTML + " points! That's " + (points_count/question_amount.innerHTML)*100 + "%."
   }
 
 
