@@ -9,4 +9,5 @@ class Question < ActiveRecord::Base
   def correct_answer
     self.answers.where(correct: true).limit(1)
   end
+
 end
