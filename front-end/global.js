@@ -7,6 +7,7 @@ var enter = document.getElementById('submitter');
 var next = document.getElementById('next');
 var points = document.getElementById('result');
 var quiz = document.getElementById('quiz');
+var choices = document.getElementById('choices');
 var question_result = document.getElementById('question_result');
 var restart = document.getElementById('restart');
 var question_amount = document.getElementById('question_amount');
@@ -28,8 +29,11 @@ begin.addEventListener("click", function() {
 
   choices_request.open("get", "http://localhost:9292/choices/"+current_question+"");
   choices_request.addEventListener("load", function(event){
-    choices.innerHTML = event.target.responseText;
-  });
+    var choices_string = event.target.responseText;
+    var choices_array = choices_string.split(',');
+    choices.innerHTML = choices_array
+
+
 
   var correct_request = new XMLHttpRequest();
 
