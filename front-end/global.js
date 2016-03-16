@@ -26,7 +26,7 @@ window.onload = function(){
   var showIfCorrect = document.getElementById("question_result");
   var submitAnswer = document.getElementById("submitThis");
   var sendAnswer = new XMLHttpRequest();
-
+//--------------------------------------------------------------------
   submitAnswer.addEventListener("click", function(){
     var userAnswer = document.getElementById("answer").value;
     sendAnswer.open("GET", "http://localhost:9292/is_correct/"+current_question+"/"+userAnswer);
@@ -44,6 +44,7 @@ window.onload = function(){
  //------------------------------------------------------------------- 
   nextQuestion = document.getElementById("next")
   nextQuestion.addEventListener("click", function(){
+   console.log("current score is "+currentScore)
     if(current_question < 4){
       current_question++
       document.getElementById("question_result").innerHTML = "";
