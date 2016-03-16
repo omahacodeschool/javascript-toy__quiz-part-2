@@ -50,6 +50,11 @@ window.onload = function(){
 
     q_result.innerHTML = answer_request.responseText;
     console.log(answer_request.responseText);
+    
+      if (answer_request.responseText.includes("correct")) {
+        winCount++
+      } else {
+      };
     });
     submit.send();
 
@@ -58,8 +63,7 @@ window.onload = function(){
   });
 
   next_it.addEventListener("click", function() {
-    
-    if (questionCount < 4) {
+    if (questionCount <= 4) {
       for (var i = 0; i < que_class.length; i++) {
         que_class[i].style.display = "block";
       }
