@@ -9,6 +9,7 @@ window.onload = function(){
   questionCountRequest.addEventListener("load", function(event) {
     var questionCountResponse = event.target;
     questionCount = questionCountResponse.responseText;
+    parseInt(questionCount)
   });
   questionCountRequest.send();
 
@@ -116,7 +117,7 @@ window.onload = function(){
   nextButton.addEventListener("click", function(event) { 
 
    if (currentQuestion < questionCount) {
-      scoreCountNotice.innerHTML = "Wins: " + ScoreCount + " -- Remaining Games: " + (questionCount - currentQuestion) + "."
+      scoreCountNotice.innerHTML = "Remaining Questions: " + (questionCount - currentQuestion) + "."
       scoreCountNotice.appendChild(document.createElement('br'));
       nextButton.style.display = "none";
       submitButton.style.display = "block";
@@ -127,7 +128,7 @@ window.onload = function(){
       getQuestion()
       getChoices()
     } else {
-      scoreCountNotice.innerHTML = "You won " + ScoreCount + " out of " + questionCount + " games."
+      scoreCountNotice.innerHTML = "Correct Questions: " + ScoreCount + " -- Incorrect Questions: " + (questionCount -  ScoreCount) + " -- Final Score: " + ((parseFloat(ScoreCount) / parseFloat(questionCount)) * 100) + "%."
       allQuestions.style.display = "none"; //hides all items in parent question div
       gameEnded.style.display = "block"; // displays end game message
       restartButton.style.display = "block"; //dispalys restart button that will refresh page so that user can play again.
