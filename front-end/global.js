@@ -6,10 +6,11 @@ window.onload = function(){
   var choices       = document.getElementById("choices");
   var submit_it     = document.getElementById("submit_button");
   var q_result      = document.getElementById("question_result");
-  var t_result      = document.getElementById("total_result");
   var next_it       = document.getElementById("next_button");
   var que_class     = document.getElementsByClassName("que");
   var result_class  = document.getElementsByClassName("que_result");
+  var score_class   = document.getElementsByClassName("score");
+  var restart_it    = document.getElementById("restart_button");
   var questionCount = 1
   var winCount      = 0
 
@@ -48,13 +49,13 @@ window.onload = function(){
     submit.addEventListener("load", function(event) {
     var answer_request = event.target;
 
-    q_result.innerHTML = answer_request.responseText;
+    question_result.innerHTML = answer_request.responseText;
     console.log(answer_request.responseText);
     
       if (answer_request.responseText.includes("correct")) {
         winCount++
       } else {
-      };
+      }
     });
     submit.send();
 
@@ -71,19 +72,21 @@ window.onload = function(){
         result_class[i].style.display = "none";
       }
 
-    var request = new XMLHttpRequest();
-    request.open("GET", "http://localhost:9292/question_answer_set/" + questionCount + "");
+      var request = new XMLHttpRequest();
+      request.open("GET", "http://localhost:9292/question_answer_set/" + questionCount + "");
 
-    request.addEventListener("load", function(event) {
-      var question_request = event.target;
+      request.addEventListener("load", function(event) {
+        var question_request = event.target;
 
-      question.innerHTML = question_request.responseText
-      console.log("Question " + questionCount + ": " + question_request.responseText);
-    });   
-    request.send();
+        question.innerHTML = question_request.responseText
+        console.log("Question " + questionCount + ": " + question_request.responseText);
+      });   
+      request.send();
 
     } else {
-      total_result.style.display      = "block";
+      for (var i = 0; i < score_class.length; i++) {
+        score_class[i].style.display  = "block";
+      }
       for (var i = 0; i < result_class.length; i++) {
         result_class[i].style.display = "none";
       }
@@ -91,6 +94,12 @@ window.onload = function(){
       total_result.innerHTML = ("You've answered " + ((winCount / 4) * 100) + "% correctly!");
       console.log("Win Ratio: " + winCount + ":" + 4);
     }
+  });
+
+  restart_it.addEventListener("click", function() {
+    var restart = new XMLHttpRequest();
+    restart.open("GET", "http://localhost:9292/");
+    restart.send();
   });
 
 };
