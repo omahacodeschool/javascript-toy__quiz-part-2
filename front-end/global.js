@@ -1,3 +1,7 @@
+function check(choicevalue) {
+  document.getElementById("answer").value = document.getElementById(choicevalue).innerHTML
+};
+
 window.onload = function(){
   //i know we'll still need "q", our question counter variable
   var q = 1
