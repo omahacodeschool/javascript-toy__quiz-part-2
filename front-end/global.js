@@ -32,7 +32,8 @@ window.onload = function(){
 
     request_a1.addEventListener("load", function(event){
       var the_request = event.target;
-      a.innerHTML = the_request.responseText;
+      // a.innerHTML = the_request.responseText;
+      a.innerHTML = "array"
       a.value = the_request.responseText;
 
     });
