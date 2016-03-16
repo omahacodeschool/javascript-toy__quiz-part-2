@@ -13,10 +13,9 @@ window.onload = function(){
   var choices = document.getElementById("choices");
 
 
-// user clicks "begin" button to start quiz. 
-
+//***User clicks "begin" button to start quiz. 
+//calls nextQuestion function to set up next question
   begin.addEventListener("click", function() {
-    //calls nextQuestion function to set up next question
     nextQuestion();
   });
 
@@ -67,7 +66,7 @@ window.onload = function(){
       while (node.hasChildNodes()) {
           node.removeChild(node.firstChild);
       }
-
+      //Self-Executing function that creates labels and respective radio buttons for each answer.
       (function(){             
         answerText.forEach(function(answer) {
           var pTag = document.createElement('p');
@@ -90,7 +89,7 @@ window.onload = function(){
     requestAnswers.send();  
   };
 
-  //User Clicks 'submit' to submit answer.
+  //***User Clicks 'submit' to submit answer.
 
   // Event Listener for Submit Button. 
   submitter.addEventListener("click", function() { 
@@ -141,7 +140,6 @@ window.onload = function(){
         while (node.hasChildNodes()) {
           node.removeChild(node.firstChild);
           question.style.display = "none";
-          questionResult.style.display = "none";
           }
       } else {
         nextButton.style.display = "block";
