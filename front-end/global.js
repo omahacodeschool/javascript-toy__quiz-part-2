@@ -103,7 +103,7 @@ window.onload = function(){
 
 
   function nextQuestion() {
-    scoreCountNotice.innerHTML = "Remaining Questions: " + (questionCount - currentQuestion) + "."
+    scoreCountNotice.innerHTML = "Remaining Questions: " + (questionCount - currentQuestion + 1) + "."
     scoreCountNotice.appendChild(document.createElement('br'));
     startButton.style.display = "none";
     submitButton.style.display = "block";
@@ -159,6 +159,7 @@ window.onload = function(){
     var questionCountResponse = event.target;
     questionCount = questionCountResponse.responseText;
     parseInt(questionCount)
+    scoreCountNotice.innerHTML = "Total Questions: " + (questionCount - currentQuestion) + "."
   });
 
   questionCountRequest.send();
@@ -171,7 +172,7 @@ window.onload = function(){
 
     if (currentQuestion <=  0) {
       startGame()
-    } else if (currentQuestion < questionCount) {
+    } else if (currentQuestion <= questionCount) {
       nextQuestion()
     } else {
       endGame()
