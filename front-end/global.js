@@ -3,6 +3,7 @@ window.onload = function(){
   var q = 1
   //and we'll still need to track our right_answers counter variable
   var right_answers = 0 
+  var correct_answer = ""
   var question_request = new XMLHttpRequest();
   var answer_request = new XMLHttpRequest();
   //hide_class_elements hides elements 
@@ -36,12 +37,19 @@ window.onload = function(){
     });
   };
   //
-  function get_the_answer() {
+  function get_the_answer(guess) {
     answer_request.open("GET", "http://localhost:9292/answer/" + q);
     answer_request.send();    
     answer_request.addEventListener("load", function(event){
-      var correct_answer = event.target;
+      correct_answer = event.target;
       correct_answer = correct_answer.responseText
+      if(guess === correct_answer){
+        right_answers++;
+        console.log("right_answers = " + right_answers);
+        document.getElementById("question_result").innerHTML = "CORRECT!";
+      } else {
+        document.getElementById("question_result").innerHTML = "SORRY! That is INCORRECT!";
+      };
     });
   };
   //
@@ -56,16 +64,9 @@ window.onload = function(){
   var submit_guess = document.getElementById("submitter")
   submit_guess.addEventListener("click", function() {
     guess = document.getElementById("answer").value;
-    correct_answer = get_the_answer
+    get_the_answer(guess)
     console.log("answer = " + guess)
     console.log("correct answer is " + correct_answer)
-    if(guess === correct_answer){
-      right_answers++;
-      console.log("right_answers = " + right_answers);
-      document.getElementById("question_result").innerHTML = "CORRECT!";
-    } else {
-      document.getElementById("question_result").innerHTML = "SORRY! That is INCORRECT!";
-    };
     hide_class_elements("q_stuff");
     show_class_elements("a_stuff");
   });
@@ -76,7 +77,6 @@ window.onload = function(){
     set_new_question("a_stuff")
     document.getElementById("answer").value = ""
     show_class_elements("q_stuff")
-
   });
 
 };
