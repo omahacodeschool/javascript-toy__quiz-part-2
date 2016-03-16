@@ -6,6 +6,7 @@ window.onload = function(){
   var correct_answer = ""
   var question_request = new XMLHttpRequest();
   var answer_request = new XMLHttpRequest();
+ 
   //hide_class_elements hides elements 
   //input class: "q_stuff"(question elements), "a_stuff"(answer elements)
   //or "beginning_stuff" (initial load elements)
@@ -24,6 +25,7 @@ window.onload = function(){
       array[i].style.display = "block"
     }
   };
+
   //sets the new question from current value of q (the question counter)
   //thingstohide is the class name of what should GO AWAY when this question is set--either beginning_stuff at the start or a_stuff when coming from "next"
   function set_new_question(thingstohide){
@@ -33,7 +35,8 @@ window.onload = function(){
     question_request.send();  
     question_request.addEventListener("load", function(event){
       var question_details = event.target;
-      document.getElementById("question").innerHTML = question_details.responseText
+      question_array = question_details.response
+      document.getElementById("question").innerHTML = JSON.parse(question_array)[0]
     });
   };
   //
