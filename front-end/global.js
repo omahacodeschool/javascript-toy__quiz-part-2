@@ -132,13 +132,13 @@ window.onload = function(){
 
   function submitAndCheckChoice() {
     startButton.innerHTML = "Next"
-    questionQuestion.style.display = "none";
-    questionChoices.style.display = "none";
-    startButton.style.display = "block";
-    submitButton.style.display = "none";
     var userAnswer = getUserAnswer()
     if (userAnswer != null) {
       getAnswerCheck(userAnswer)
+      questionQuestion.style.display = "none";
+      questionChoices.style.display = "none";
+      startButton.style.display = "block";
+      submitButton.style.display = "none";
     } else {
     submitButton.style.display = "block";
     startButton.style.display = "none";
