@@ -9,7 +9,25 @@
 
 <h1>Quiz Game</h1>
 
-<button id="begin_button">Click me to begin the game.</button>
+<button id="begin_button" class="beginning_stuff">Click me to begin the game.</button>
+<div id="question" class="q_stuff"></div>
+    <div id="choices" class="choices q_stuff">
+      <form>
+      <input type="radio" name="choice" onclick="check('label1')" value="choice1"></input><label id="label1">Choice 1</label><br>
+      <input type="radio" name="choice" onclick="check('label2')" value="choice2"></input><label id="label2">Choice 2</label><br>
+      <input type="radio" name="choice" onclick="check('label3')" value="choice3"></input><label id="label3">Choice 3</label><br>
+      <input type="radio" name="choice" onclick="check('label4')" value="choice4"></input><label id="label4">Choice 4</label><br> 
+      </form>
+    </div>
+<input type="text" id="answer" class="q_stuff">
+<button id="submitter" class="q_stuff">Submit Answer</button>
+<!-- these two things should be hidden until answer submitted -->
+<div id="question_result" class="a_stuff">
+  <!-- right/wrong -->
+</div>
+<button id="next" class="a_stuff">Next Question</button>
+</div> <!--this ends quiz div--> 
+<div id="total_result">
 
 </body>
 </html>
