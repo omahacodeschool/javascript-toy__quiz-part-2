@@ -46,7 +46,7 @@ window.onload = function(){
   };
   function assign_choices_to_buttons(choicesarray){
     var choiceInputs = document.querySelectorAll(".choices input");  
-    for (var i = choiceInputs.length - 1; i >= 0; i--) {
+    for (var i = choicesarray.length - 1; i >= 0; i--) {
       document.querySelectorAll("#label"+(i+1))[0].innerHTML = choicesarray[i];
       choiceInputs[i].value = choicesarray[i];
     }; 
@@ -63,7 +63,7 @@ window.onload = function(){
         console.log("right_answers = " + right_answers);
         document.getElementById("question_result").innerHTML = "CORRECT!";
       } else {
-        document.getElementById("question_result").innerHTML = "SORRY! That is INCORRECT!";
+        document.getElementById("question_result").innerHTML = "SORRY! You chose " + guess + ", and the answer is actually " + correct_answer;
       };
     });
   };
