@@ -41,7 +41,6 @@ window.onload = function(){
 
     var userAnswer = document.getElementById("answer").value;
     console.log("User Answer: " + userAnswer);
-    ;
 
     var submit = new XMLHttpRequest();
     submit.open("GET", "http://localhost:9292/answer_check/" + questionCount + "/" + userAnswer + "");
@@ -53,7 +52,41 @@ window.onload = function(){
     console.log(answer_request.responseText);
     });
     submit.send();
+
+    document.getElementById("answer").value = ""
     questionCount++
+  });
+
+  next_it.addEventListener("click", function() {
+    
+    if (questionCount < 4) {
+      for (var i = 0; i < que_class.length; i++) {
+        que_class[i].style.display = "block";
+      }
+      for (var i = 0; i < result_class.length; i++) {
+        result_class[i].style.display = "none";
+      }
+
+    var request = new XMLHttpRequest();
+    request.open("GET", "http://localhost:9292/question_answer_set/" + questionCount + "");
+
+    request.addEventListener("load", function(event) {
+      var question_request = event.target;
+
+      question.innerHTML = question_request.responseText
+      console.log("Question " + questionCount + ": " + question_request.responseText);
+    });   
+    request.send();
+
+    } else {
+      total_result.style.display      = "block";
+      for (var i = 0; i < result_class.length; i++) {
+        result_class[i].style.display = "none";
+      }
+
+      total_result.innerHTML = ("You've answered " + ((winCount / 4) * 100) + "% correctly!");
+      console.log("Win Ratio: " + winCount + ":" + 4);
+    }
   });
 
 };
