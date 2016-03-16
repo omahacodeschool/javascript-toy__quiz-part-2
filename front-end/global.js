@@ -29,6 +29,15 @@ var questionResult = document.getElementById('questionResult');
     var choiceBack = new XMLHttpRequest();
     choiceBack.open("get", "http://localhost:9292/choices/"+params);
     choiceBack.addEventListener("load", function(event){
+      function choose (){
+        var whichOne = document.getElementsByName("choices");
+        var sample = whichOne.length
+        for (i=0;i<sample;i++){
+          if (whichOne[i].checked){
+            whichOne[i].value = choices
+          }
+        }
+      }
     choices.innerHTML = choiceBack.responseText;
     });
 
