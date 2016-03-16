@@ -16,9 +16,7 @@ MyApp.get "/correct_answer/:question_id/:user_answer" do
     @question = Question.find_by_id(params[:question_id])
     @user_answer = params[:user_answer]
     @correct_answer = Answer.where("question_id" => params[:question_id], "correct" => true).first
-    # @score = 0
     if @correct_answer.content == @user_answer
-      # @score += 1
       erb :"correct_answer"
     else
       erb :"wrong_answer"
@@ -29,4 +27,14 @@ MyApp.get "/score/:score" do
   @score = params[:score]
   @total = Question.all.length
   erb :"score"
+end
+
+MyApp.get "/question/:question_id/:score" do
+   @question = Question.find_by_id(params[:question_id])
+  erb :"question"
+end
+
+MyApp.get "/answer1/:question_id" do
+ @question = Question.find_by_id(params[:question_id])
+  erb :"radiobutton1"
 end

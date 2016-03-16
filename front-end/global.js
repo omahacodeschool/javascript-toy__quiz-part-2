@@ -7,6 +7,10 @@ window.onload = function(){
   var submit_button = document.getElementById("submitter");
   var next_button = document.getElementById("next");
   var result = document.getElementById("total_result");
+  var a = document.getElementById("a");
+  var b = document.getElementById("b");
+  var c = document.getElementById("c");
+  var d = document.getElementById("d");
   var score = 0;
   var question_number = 1;
 
@@ -14,15 +18,27 @@ window.onload = function(){
   begin_button.addEventListener("click", function(){
     begin_button.style.display = "none";
     quiz.style.display = "block";
-    var request = new XMLHttpRequest();
-    request.open("GET", "http://localhost:9292/combined_question_and_answer/1/0");
+    var request_q = new XMLHttpRequest();
+    var request_a1 = new XMLHttpRequest();
 
-    request.addEventListener("load", function(event){
+    request_q.open("GET", "http://localhost:9292/question/1/0");
+    request_a1.open("GET", "http://localhost:9292/answer1/1");
+
+    request_q.addEventListener("load", function(event){
       var the_request = event.target;
-      choices.innerHTML = the_request.responseText;
+      question_text.innerHTML = the_request.responseText;
+
     });
 
-    request.send();
+    request_a1.addEventListener("load", function(event){
+      var the_request = event.target;
+      a.innerHTML = the_request.responseText;
+      a.value = the_request.responseText;
+
+    });
+
+    request_q.send();
+    request_a1.send();
   });
 
   submit_button.addEventListener("click", function(){
