@@ -20,21 +20,21 @@ begin.addEventListener("click", function() {
 
   question_request.open("get", "http://localhost:9292/question/"+current_question+"");
   question_request.addEventListener("load", function(event){
-    question.innerHTML = question_request.responseText;
+    question.innerHTML = event.target.responseText;
   });
 
   var choices_request = new XMLHttpRequest();
 
   choices_request.open("get", "http://localhost:9292/choices/"+current_question+"");
   choices_request.addEventListener("load", function(event){
-    choices.innerHTML = choices_request.responseText;
+    choices.innerHTML = event.target.responseText;
   });
 
   var correct_request = new XMLHttpRequest();
 
   correct_request.open("get", "http://localhost:9292/correct/"+current_question+"");
   correct_request.addEventListener("load", function(event){
-    correct_answer.innerHTML = correct_request.responseText;
+    correct_answer.innerHTML = event.target.responseText;
   });
 
   points.innerHTML = "You have " + points_count + " point(s).";
@@ -93,21 +93,21 @@ next.addEventListener("click", function() {
 
   question_request.open("get", "http://localhost:9292/question/"+current_question+"");
   question_request.addEventListener("load", function(event){
-    question.innerHTML = question_request.responseText;
+    question.innerHTML = event.target.responseText;
   });
 
   var choices_request = new XMLHttpRequest();
 
   choices_request.open("get", "http://localhost:9292/choices/"+current_question+"");
   choices_request.addEventListener("load", function(event){
-    choices.innerHTML = choices_request.responseText;
+    choices.innerHTML = event.target.responseText;
   });
 
   var correct_request = new XMLHttpRequest();
 
   correct_request.open("get", "http://localhost:9292/correct/"+current_question+"");
   correct_request.addEventListener("load", function(event){
-    correct_answer.innerHTML = correct_request.responseText;
+    correct_answer.innerHTML = event.target.responseText;
   });
 
   points.innerHTML = "You have " + points_count + " point(s).";
