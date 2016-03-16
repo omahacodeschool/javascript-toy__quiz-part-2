@@ -16,3 +16,12 @@ MyApp.get "/correct/:id" do
   @question_object = Question.find_by_id(params[:id])
   erb :"/correct"
 end
+
+MyApp.get "/questions/amount" do
+  questions = Question.all
+  @question_array = []
+  questions.each do |q|
+    @question_array << q.id
+  end
+  erb :"/amount"
+end
