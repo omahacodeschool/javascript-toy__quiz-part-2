@@ -14,29 +14,46 @@ window.onload = function(){
   var winCount      = 0
 
   start_it.addEventListener("click", function() {
+    start_it.style.display       = "none";
+    for (var i = 0; i < que_class.length; i++) {
+      que_class[i].style.display = "block";
+    }
+
     var request = new XMLHttpRequest();
     request.open("GET", "http://localhost:9292/question_answer_set/" + questionCount + "");
 
     request.addEventListener("load", function(event) {
       var question_request = event.target;
+
+      question.innerHTML = question_request.responseText
       console.log("Question " + questionCount + ": " + question_request.responseText);
-      
-      var userAnswer = prompt(question_request.responseText);
-      console.log("User Answer: " + userAnswer);
-      ;
-
-      var submit = new XMLHttpRequest();
-      submit.open("GET", "http://localhost:9292/answer_check/" + questionCount + "/" + userAnswer + "");
-
-      submit.addEventListener("load", function(event) {
-      var answer_request = event.target;
-
-      alert(answer_request.responseText);
-      console.log(answer_request.responseText);
-      });
-      submit.send();
-      questionCount++
-    });
+    });   
     request.send();
   });
+
+  submit_it.addEventListener("click", function() {
+    for (var i = 0; i < que_class.length; i++) {
+      que_class[i].style.display    = "none";
+    }
+    for (var i = 0; i < result_class.length; i++) {
+      result_class[i].style.display = "block";
+    }
+
+    var userAnswer = document.getElementById("answer").value;
+    console.log("User Answer: " + userAnswer);
+    ;
+
+    var submit = new XMLHttpRequest();
+    submit.open("GET", "http://localhost:9292/answer_check/" + questionCount + "/" + userAnswer + "");
+
+    submit.addEventListener("load", function(event) {
+    var answer_request = event.target;
+
+    q_result.innerHTML = answer_request.responseText;
+    console.log(answer_request.responseText);
+    });
+    submit.send();
+    questionCount++
+  });
+
 };
