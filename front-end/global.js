@@ -68,28 +68,52 @@ window.onload = function(){
     var question_results = document.getElementById("question_results");
 
     var result = new XMLHttpRequest();
-      result.open("get", "http://localhost:9292/result/"+ count);
+    result.open("get", "http://localhost:9292/result/"+ count);
       
     result.addEventListener("load", function(event){
-    var the_result = event.target;
+      var the_result = event.target;
       var result_response = the_result.responseText;
       question_results.innerHTML = result_response; 
+      var correctAnswer = document.getElementById("question_results")
+
+    if (guess == correctAnswer.innerHTML) {
+      alert("Correct!"); score++;
+    } else {
+      alert("Incorrect"); 
+    }
+     debugger;
+    count++;
+
+
     });
 
     result.send();
   });
 
-    if (guess == question_results[count]) {
-      alert("Correct!"); score++;
-    } else {
-      alert("Incorrect"); 
-    }
-    
-    count++;
+    // var correctAnswer = document.getElementById("question_results")
 
-    if(count == question_list.length) {
-        alert("Thanks for playing! You got " + score + " out of " + count + " right!");
-    }
+    // if (guess == correctAnswer.innerHTML) {
+    //   alert("Correct!"); score++;
+    // } else {
+    //   alert("Incorrect"); 
+    // }
+    
+    // count++;
+
+
+  // var correctAnswer = document.getElementById("question_results")
+
+  //   if (guess == correctAnswer) {
+  //     alert("Correct!"); score++;
+  //   } else {
+  //     alert("Incorrect"); 
+  //   }
+    
+  //   count++;
+
+    // if(count == question_list.length) {
+    //     alert("Thanks for playing! You got " + score + " out of " + count + " right!");
+    // }
 
 };
 
