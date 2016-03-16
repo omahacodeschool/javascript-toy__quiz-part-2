@@ -1,4 +1,5 @@
 window.onload = function(){
+  var ScoreCount = 0;
   var currentQuestion = 0;
   var questionCount;
 
@@ -85,6 +86,7 @@ window.onload = function(){
       console.log(validatedAnswer)
       if (validatedAnswer == "true") {
        correctNotification.style.display = "block";
+       ++ScoreCount
       } else {
         wrongtNotification.style.display ="block";
       }
@@ -114,6 +116,8 @@ window.onload = function(){
   nextButton.addEventListener("click", function(event) { 
 
    if (currentQuestion < questionCount) {
+      scoreCountNotice.innerHTML = "Wins: " + ScoreCount + " -- Remaining Games: " + (questionCount - currentQuestion) + "."
+      scoreCountNotice.appendChild(document.createElement('br'));
       nextButton.style.display = "none";
       submitButton.style.display = "block";
       wrongtNotification.style.display ="none";
@@ -123,6 +127,7 @@ window.onload = function(){
       getQuestion()
       getChoices()
     } else {
+      scoreCountNotice.innerHTML = "You won " + ScoreCount + " out of " + questionCount + " games."
       allQuestions.style.display = "none"; //hides all items in parent question div
       gameEnded.style.display = "block"; // displays end game message
       restartButton.style.display = "block"; //dispalys restart button that will refresh page so that user can play again.
