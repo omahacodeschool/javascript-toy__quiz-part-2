@@ -74,9 +74,14 @@ window.onload = function(){
   var next_question = document.getElementById("next") 
   next.addEventListener ("click", function() {
     q++
-    set_new_question("a_stuff")
-    document.getElementById("answer").value = ""
-    show_class_elements("q_stuff")
+    if(q <= 4){
+      set_new_question("a_stuff")
+      document.getElementById("answer").value = ""
+      show_class_elements("q_stuff")
+    }else {
+      hide_class_elements("a_stuff")
+      document.getElementById("total_result").textContent = "You answered all the questions! You got " + right_answers + "/4 right! That's a score of " + (right_answers/4)*100 + "%!";
+    };
   });
 
 };
