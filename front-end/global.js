@@ -3,7 +3,8 @@ window.onload = function(){
   var q = 1
   //and we'll still need to track our right_answers counter variable
   var right_answers = 0 
-  var request = new XMLHttpRequest();
+  var question_request = new XMLHttpRequest();
+  var answer_request = new XMLHttpRequest();
   //hide_class_elements hides elements 
   //input class: "q_stuff"(question elements), "a_stuff"(answer elements)
   //or "beginning_stuff" (initial load elements)
@@ -25,18 +26,27 @@ window.onload = function(){
   //sets the new question from current value of q (the question counter)
   //thingstohide is the class name of what should GO AWAY when this question is set--either beginning_stuff at the start or a_stuff when coming from "next"
   function set_new_question(thingstohide){
-    //hide_class_elements(thingstohide)
-    //show_class_elements("q_stuff")
-    request.open("GET", "http://localhost:9292/info/" + q);
-    request.send();    
-    request.addEventListener("load", function(event){
+    hide_class_elements(thingstohide)
+    show_class_elements("q_stuff")
+    question_request.open("GET", "http://localhost:9292/info/" + q);
+    question_request.send();    
+    question_request.addEventListener("load", function(event){
       var question_details = event.target;
       document.getElementById("question").innerHTML = question_details.responseText
     });
   };
   //
-  //hide_class_elements("q_stuff")
-  //hide_class_elements("a_stuff")
+  function get_the_answer() {
+    answer_request.open("GET", "http://localhost:9292/answer/" + q);
+    answer_request.send();    
+    answer_request.addEventListener("load", function(event){
+      var correct_answer = event.target;
+      correct_answer = correct_answer.responseText
+    });
+  };
+  //
+  hide_class_elements("q_stuff")
+  hide_class_elements("a_stuff")
   //
   var begin = document.getElementById("begin_button")
   begin.addEventListener("click", function() {
@@ -46,30 +56,27 @@ window.onload = function(){
   var submit_guess = document.getElementById("submitter")
   submit_guess.addEventListener("click", function() {
     guess = document.getElementById("answer").value;
-    request.open("GET", "http://localhost:9292/answer/" + q);
-    request.send();    
-    request.addEventListener("load", function(event){
-      var correct_answer = event.target;
-      correct_answer = correct_answer.responseText
-      console.log("answer = " + guess)
-      console.log("correct answer is " + correct_answer)
-      if(guess === correct_answer){
-        right_answers++;
-        console.log("right_answers = " + right_answers);
-        document.getElementById("question_result").innerHTML = "CORRECT!";
-      } else {
-        document.getElementById("question_result").innerHTML = "SORRY! That is INCORRECT!";
-      };
-      //hide_class_elements("q_stuff");
-      //show_class_elements("a_stuff");
-    });
+    correct_answer = get_the_answer
+    console.log("answer = " + guess)
+    console.log("correct answer is " + correct_answer)
+    if(guess === correct_answer){
+      right_answers++;
+      console.log("right_answers = " + right_answers);
+      document.getElementById("question_result").innerHTML = "CORRECT!";
+    } else {
+      document.getElementById("question_result").innerHTML = "SORRY! That is INCORRECT!";
+    };
+    hide_class_elements("q_stuff");
+    show_class_elements("a_stuff");
   });
   //
   var next_question = document.getElementById("next") 
   next.addEventListener ("click", function() {
     q++
     set_new_question("a_stuff")
+    document.getElementById("answer").value = ""
     show_class_elements("q_stuff")
+
   });
 
 };
