@@ -9,6 +9,14 @@ var points = document.getElementById('result');
 var quiz = document.getElementById('quiz');
 var question_result = document.getElementById('question_result');
 var restart = document.getElementById('restart');
+var question_amount = document.getElementById('question_amount');
+
+var question_amount_request = new XMLHttpRequest();
+question_amount_request.open("get", "http://localhost:9292/questions/amount");
+question_amount_request.addEventListener("load", function(event){
+  question_amount.innerHTML = event.target.responseText;
+});
+question_amount_request.send();
 
 begin.addEventListener("click", function() {
 
