@@ -4,7 +4,7 @@ MyApp.get "/" do
   erb :"home"
 end
 
-Myapp.post "/answer" do
+Myapp.post "/:answer" do
   #some data comes in with form
   #check to see if data matches answer in database
   #assign boolean to varialbe
