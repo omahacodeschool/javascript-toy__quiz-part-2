@@ -4,5 +4,5 @@ end
 
 MyApp.get "/combined_question_and_answer/:id" do
   @question = Question.first
-  erb :"questions/question_and_answer_set"
+  erb :"home"
 end
