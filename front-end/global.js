@@ -27,12 +27,43 @@ begin.addEventListener("click", function() {
 
   var choices_request = new XMLHttpRequest();
 
-  choices_request.open("get", "http://localhost:9292/choices/"+current_question+"");
-  choices_request.addEventListener("load", function(event){
-    var choices_string = event.target.responseText;
-    var choices_array = choices_string.split(',');
-    choices.innerHTML = choices_array
+  choices_request.open("GET", "http://localhost:9292/choices/"+current_question+"");
+  choices_request.addEventListener("load", function(event){
+    var the_choices_request = event.target;
+    var options_string = the_choices_request.responseText;
+    var options_array = options_string.split(',');
 
+    var options_list = document.createElement("OL");
+    options_list.type = "A";
+    options_list.id = "options";
+    debugger;
+
+    for (i = 0; i < options_array.length; i++) {
+      //var option = showOption(i, options_array[i]);
+
+      var radio = document.createElement("input");
+        radio.type = "radio";
+        radio.id = i;
+        radio.name = "option";
+        radio.value = options_array[i];
+      var label = document.createElement("label");
+        label.htmlFor = i;
+        label.innerHTML = options_array[i];
+        label.appendChild(radio);
+      var option_item = document.createElement("li");
+        option_item.appendChild(label);
+
+      options_list.appendChild(option_item);
+      debugger;
+    };
+
+  });
+
+  //choices_request.open("get", "http://localhost:9292/choices/"+current_question+"");
+  //choices_request.addEventListener("load", function(event){
+  //  var choices_string = event.target.responseText;
+  //  var choices_array = choices_string.split(',');
+  //  choices.innerHTML = choices_array
 
 
   var correct_request = new XMLHttpRequest();
@@ -47,7 +78,7 @@ begin.addEventListener("click", function() {
   question_amount_request.open("get", "http://localhost:9292/questions/amount");
   question_amount_request.addEventListener("load", function(event){
   question_amount.innerHTML = event.target.responseText;
-});
+  });
 
 
   points.innerHTML = "You have " + points_count + " point(s).";
@@ -132,8 +163,8 @@ next.addEventListener("click", function() {
 
 });
 
-restart.addEventListener("click", function() {
-  window.location.reload();
-});
+  restart.addEventListener("click", function() {
+    window.location.reload();
+  });
 
 };
