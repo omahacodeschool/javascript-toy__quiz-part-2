@@ -13,10 +13,13 @@ window.onload = function(){
     //   alert(a_request.responseText)
     // });
 
-    request.send
+    request.send();
 
-    request.addEventListener("load", function(){
-      prompt("Question")
+    request.addEventListener("load", function(event){
+      var ua = event.target.response // event.responseText
+
+      document.getElementById("question").innerHTML = ua
+
     });
   });
 }; 
