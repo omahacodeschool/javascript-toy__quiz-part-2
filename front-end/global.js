@@ -8,18 +8,24 @@ window.onload = function(){
 
     request.open("GET", "http://localhost:9292/combined_question_and_answer/1");
 
-    // request.addEventListener("load", function() {
-    //   var a_request = event.target;
-    //   alert(a_request.responseText)
-    // });
-
     request.send();
 
     request.addEventListener("load", function(event){
-      var ua = event.target.response // event.responseText
+      var ua = event.target.response
 
       document.getElementById("question").innerHTML = ua
-
     });
-  });
+  });  
+  
+  var submit = document.getElementById("submitter");
+  
+  request.open("GET", "http://localhost:9292/combined_question_and_answer/1");
+
+  request.send();
+
+  request.addEventListener("load", function(event){
+    var ca = event.target.response
+
+    document.getElementById("question_result").innerHTML = ca
+  });  
 }; 
