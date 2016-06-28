@@ -1,1 +1,8 @@
-This application responds to requests about question/answer information.
+
+<%= @question.content %><br>
+
+<% @question.answers.each do |answer| %>
+  <%= answer.content %></br>
+<% end %>
+
+

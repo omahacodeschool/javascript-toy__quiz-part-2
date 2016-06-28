@@ -10,7 +10,7 @@ As with the previous version, this assignment is split into two parts. Again, it
 
 Please start out by creating a PR for this repo, and don't forget to push your code every 30-40 minutes just so we can see how its going.
 
-## More Details
+## More Details 
 
 Separating the front-end and server-side of the application requires the use of the request/response cycle, but it would be annoying for the user to sit through repeated page loads for each new question. So you'll be using the XHR object in JavaScript to make requests to the server behind the scenes. Consider this sequence diagram:
 
@@ -26,7 +26,7 @@ In the **server/** folder included in this project, you'll find a working Sinatr
 
 The exact opposite of the server, the front-end is entirely concerned with the display of information. It does not know anything specific about questions or answers--except that it needs to ask the server for information about them, so it can display that information in some way to the client.
 
-The Front-End consists of a singe HTML page and JavaScript. The HTML page is only ever loaded once by the client. After that, the DOM representing that page is updated by JavaScript based on events triggered by the client.
+The Front-End consists of a single HTML page and JavaScript. The HTML page is only ever loaded once by the client. After that, the DOM representing that page is updated by JavaScript based on events triggered by the client.
 
 #### Getting Started & Making Progress
 
